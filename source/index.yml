@@ -1,0 +1,204 @@
+title: API Reference
+
+language_tabs:
+  - json
+  - bash
+  - csharp
+  - python
+  - javascript
+
+toc_footers:
+  - <a href='https://community.versionone.com/'>Community Site</a>
+
+includes:
+  - main
+  - baseurl
+  - authentication
+  - headers/index
+  - errors/index
+
+  - overview/index
+  - overview/metav1
+  - overview/bulk
+  - overview/restv1Data
+  - overview/restv1Hist
+  - overview/queryv1
+  - overview/activityStream
+  - overview/tags
+  - overview/loc
+
+  - attributeDefinitionSyntax/index
+
+  - metav1/index
+
+  - metav1/all/index
+  - metav1/all/bash
+  - metav1/all/csharp
+  - metav1/all/js
+  - metav1/all/python
+  - metav1/all/response
+
+  - metav1/singleAsset/index
+  - metav1/singleAsset/bash
+  - metav1/singleAsset/csharp
+  - metav1/singleAsset/js
+  - metav1/singleAsset/python
+  - metav1/singleAsset/response
+
+  - metav1/example/index
+  - metav1/example/bash
+  - metav1/example/csharp
+  - metav1/example/js
+  - metav1/example/python
+  - metav1/example/response
+
+  - bulk/index
+
+  - bulk/create/index
+  - bulk/create/bash
+  - bulk/create/csharp
+  - bulk/create/js
+  - bulk/create/json
+  - bulk/create/python
+  - bulk/create/response
+  - bulk/create/content
+
+  - bulk/createMany/index
+  - bulk/createMany/bash
+  - bulk/createMany/csharp
+  - bulk/createMany/js
+  - bulk/createMany/json
+  - bulk/createMany/python
+  - bulk/createMany/response
+  - bulk/createMany/content
+
+  - bulk/update/index
+  - bulk/update/bash
+  - bulk/update/csharp
+  - bulk/update/js
+  - bulk/update/json
+  - bulk/update/python
+  - bulk/update/response
+  - bulk/update/content
+
+  - bulk/updateMany/index
+  - bulk/updateMany/bash
+  - bulk/updateMany/csharp
+  - bulk/updateMany/js
+  - bulk/updateMany/json
+  - bulk/updateMany/python
+  - bulk/updateMany/response
+  - bulk/updateMany/content
+
+  - bulk/operation/index
+  - bulk/operation/bash
+  - bulk/operation/csharp
+  - bulk/operation/js
+  - bulk/operation/json
+  - bulk/operation/python
+  - bulk/operation/response
+  - bulk/operation/content
+
+  - bulk/filter/index
+  - bulk/filter/bash
+  - bulk/filter/csharp
+  - bulk/filter/js
+  - bulk/filter/json
+  - bulk/filter/python
+  - bulk/filter/response
+  - bulk/filter/content
+
+  - bulk/alias/index
+  - bulk/alias/bash
+  - bulk/alias/csharp
+  - bulk/alias/js
+  - bulk/alias/json
+  - bulk/alias/python
+  - bulk/alias/response
+  - bulk/alias/content
+
+  - restv1Data/index
+
+  - restv1Hist/index
+
+  - queryv1/index
+
+  - activityStream/index
+
+  - activityStream/query/index
+  - activityStream/query/bash
+  - activityStream/query/csharp
+  - activityStream/query/js
+  - activityStream/query/json
+  - activityStream/query/python
+  - activityStream/query/response
+  - activityStream/query/content
+
+  - tags/index
+
+  - tags/query/index
+  - tags/query/bash
+  - tags/query/csharp
+  - tags/query/js
+  - tags/query/json
+  - tags/query/python
+  - tags/query/response
+  - tags/query/content
+
+  - tags/all/index
+  - tags/all/bash
+  - tags/all/csharp
+  - tags/all/js
+  - tags/all/json
+  - tags/all/python
+  - tags/all/response
+  - tags/all/content
+
+  - tags/search/index
+  - tags/search/bash
+  - tags/search/csharp
+  - tags/search/js
+  - tags/search/json
+  - tags/search/python
+  - tags/search/response
+  - tags/search/content
+
+  - tags/merge/index
+  - tags/merge/bash
+  - tags/merge/csharp
+  - tags/merge/js
+  - tags/merge/json
+  - tags/merge/python
+  - tags/merge/response
+  - tags/merge/content
+
+  - tags/remove/index
+  - tags/remove/bash
+  - tags/remove/csharp
+  - tags/remove/js
+  - tags/remove/json
+  - tags/remove/python
+  - tags/remove/response
+  - tags/remove/content
+
+  - loc/index
+
+  - loc/assetTypes/index
+  - loc/assetTypes/bash
+  - loc/assetTypes/csharp
+  - loc/assetTypes/js
+  - loc/assetTypes/json
+  - loc/assetTypes/python
+  - loc/assetTypes/response
+  - loc/assetTypes/content
+
+  - loc/attributeDefinitions/index
+  - loc/attributeDefinitions/bash
+  - loc/attributeDefinitions/csharp
+  - loc/attributeDefinitions/js
+  - loc/attributeDefinitions/json
+  - loc/attributeDefinitions/python
+  - loc/attributeDefinitions/response
+  - loc/attributeDefinitions/content
+
+search: true
