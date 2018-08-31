@@ -35,6 +35,15 @@
       </ul>
     </div>
     <div class="page-wrapper">
+      <div class="instance-bar">
+        <div class="url">
+          <span class="protocol">https://</span>
+          <span class="host">V1Host</span>
+          <span class="slash">/</span>
+          <span class="instance">V1Instance</span>
+        </div>
+        <button class="edit-instance">Edit</button>
+      </div>
       <div class="dark-box"></div>
       <div class="content">
         <h1 id="introduction">Introduction</h1>
@@ -43,10 +52,10 @@
         <p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
         <h1 id="base-url">Base URL</h1>
         <p>Find your VersionOne url may look like this
-          <a href="https://www7.v1host.com/VersionOne">https://www7.v1host.com/VersionOne</a>.</p>
-        <p>In this case <code>www7.v1host.com</code> is your <code>V1Host</code> and <code>VersionOne</code> is your <code>V1Instance</code>. These will be used to build your base url that all requests to the API rely on.</p>
-        <aside class="notice"> For the remainder of this guide when you see <code>V1Host</code> and <code>V1Instance</code> replace these values with your VersionOne instance&#39;s url.
-          <br>
+          <a href="https://www7.v1host.com/V1Instance">https://www7.v1host.com/V1Instance</a>.</p>
+        <p>In this case <code>www7.v1host.com</code> is your <code>host</code> and <code>V1Instance</code> is your <code>instance</code>. These will be used to build your base url that all requests to the API rely on.</p>
+        <aside class="notice"> You can udpate these docs with your <code>host</code> and <code>instance</code> with the Edit button above or click
+          <span class="here">here</span>
         </aside>
         <h1 id="authentication">Authentication</h1>
         <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
@@ -60,7 +69,7 @@
   ) <span class="hljs-keyword">as</span> v1:</code></pre>
           <i class="fa fa-copy"></i>
         </span>
-        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instnace/api_endpoint_here"</span>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/api_endpoint_here"</span>
   -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span></code></pre>
           <i class="fa fa-copy"></i>
         </span>
@@ -77,16 +86,46 @@
   .withAccessToken(<span class="hljs-string">'&lt;access-token&gt;'</span>);</code></pre>
           <i class="fa fa-copy"></i>
         </span>
-        <blockquote>
-          <p>Make sure to replace <code>&lt;access-token&gt;</code> with your API token.</p>
-        </blockquote>
         <p>VersionOne uses access tokens to grant access to the API. You can register a new access token by ...</p>
         <p>VersionOne expects for the access token to be included in all API requests to the server in a header that looks like the following:</p>
         <p><code>Authorization: Bearer &lt;access-token&gt;</code></p>
-        <aside class="notice"> You must replace <code><access-token></code> with your personal access token. </aside>
+        <aside class="notice"> You can udpate these docs with your <code>access token</code> with the Edit button above or click
+          <span class="here">here</span>
+        </aside>
         <h1 id="http-headers">HTTP Headers</h1>
+        <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper python "><pre class="highlight python "><code><span class="hljs-keyword">from</span> v1pysdk <span class="hljs-keyword">import</span> V1Meta
+
+<span class="hljs-keyword">with</span> V1Meta(
+  instance_url = <span class="hljs-string">'http://V1Host/V1Instance'</span>,
+  token = <span class="hljs-string">'&lt;access-token&gt;'</span>
+  ) <span class="hljs-keyword">as</span> v1:</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/api_endpoint_here"</span>
+  -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
+  -H <span class="hljs-string">"Content-Type: application/json"</span>
+  -H <span class="hljs-string">"Accept: application/json"</span></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper javascript "><pre class="highlight javascript "><code> <span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+ <span class="hljs-keyword">import</span> sdk, { axiosConnector } <span class="hljs-keyword">from</span> <span class="hljs-string">'v1sdk'</span>;
+
+ <span class="hljs-keyword">const</span> axiosConnectedSdk = axiosConnector(axios)(sdk);
+ <span class="hljs-keyword">const</span> v1 = axiosConnectedSdk(
+    <span class="hljs-string">'V1Host'</span>,
+    <span class="hljs-string">'V1Instance'</span>,
+    <span class="hljs-number">443</span>,
+    <span class="hljs-literal">true</span>
+  )
+  .withAccessToken(<span class="hljs-string">'&lt;access-token&gt;'</span>);</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
         <p>For this guide we will only show the VersionOne server accepting and responding with JSON.</p>
-        <p>The <code>Content-Type</code> header tells the server what media type we are sending it in the request body. The <code>Accept</code> header tells the server what media type to respond to the request with.</p>
+        <p>The <code>Content-Type</code> header tells the server what media type we are sending it in the request body.
+          <br>The <code>Accept</code> header tells the server what media type to respond to the request with.</p>
         <p>Ensure that every request contains the following HTTP headers</p>
         <p><code>Content-Type: applicaiton/json</code> </p>
         <p><code>Accept: application/json</code></p>
@@ -166,6 +205,75 @@
         <p>In a case where a locale specific string could not be found, a series of fallbacks exist. For example if French-Canadian (fr-ca) does not have a localization entry for the string &quot;Story&quot;, the French locale (fr) will be searched, and
           then finally the English (en) locale will be searched. If no localization entry exists in any locale, the input string will be returned unchanged. To retrieve a localized string for a specific locale, set the &quot;Accept-Language&quot; HTTP
           Header in the request to a specific locale. For example to use French-Canadian set the header to &quot;fr-ca&quot;.</p>
+        <h1 id="terminology">Terminology</h1>
+        <h2 id="asset">Asset</h2>
+        <p>A
+          <strong>System Asset</strong> is a core business object in the VersionOne® Lifecycle model. Each asset represents the stories/backlog items, defects, sprints/iterations, and the members who use the system. The diagram below illustrates the relationship
+          of these assets to one another and how they work together to help you manage your workflow.</p>
+        <h2 id="asset-types">Asset Types</h2>
+        <p>Asset types describe the &quot;classes&quot; of data available. Each asset type contains a collection of attribute definitions, a collection of operations, and a number of useful attribute definitions for things like sorting. Asset types form
+          an inheritance hierarchy, such that each asset type inherits attribute definitions, operations, and rules from its parent asset type. Those asset types at the leaves of this hierarchy are concrete, whereas asset types with children asset types
+          are abstract. Assets are all instances of concrete asset types. Asset types are identified by unique names.</p>
+        <p>By way of example, Story and Defect are concrete asset types. On the other hand, Workitem is an abstract asset type, from which Story and Defect ultimately derive.</p>
+        <p>Most asset types have the same name as found in the application user interface. A Defect in the user interface is also a Defect as an asset type. However, many of the most common asset types have a different name. </p>
+        <p>
+          <br />
+          <img src="images/asset-diagram.png" />
+        </p>
+        <h2 id="asset-states">Asset States</h2>
+        <p>Asset states represent system-known life-cycle stage of an asset. The UI typically only show assets that are not &quot;Dead&quot;.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>State</th>
+              <th>Name</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0</td>
+              <td>Future</td>
+              <td>The asset has been assigned to a user-defined workflow status.</td>
+            </tr>
+            <tr>
+              <td>64</td>
+              <td>Acive</td>
+              <td>The asset has been closed or quick-closed.</td>
+            </tr>
+            <tr>
+              <td>128</td>
+              <td>Closed</td>
+              <td>The asset has been closed or quick-closed.</td>
+            </tr>
+            <tr>
+              <td>200</td>
+              <td>Template (Dead)</td>
+              <td>The asset is only used to create new copies as part of creating from Templates or Quick Add.</td>
+            </tr>
+            <tr>
+              <td>208</td>
+              <td>Broken Down (Dead)</td>
+              <td>The asset was converted to an Epic for further break-down.</td>
+            </tr>
+            <tr>
+              <td>255</td>
+              <td>Deleted (Dead)</td>
+              <td>The asset has been deleted.</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="notice"> In Lifecycle deleted assets are not permantely erased, but instead marked with an Asset State indicating they have no value to the system. If the asset is significant or has importance consider Closing it when it has reached maturity instead!
+          </aside>
+        <h2 id="attribute-definitions">Attribute Definitions</h2>
+        <p>Attribute definitions describe the properties that &quot;make up&quot; each asset type. Each attribute definition describes the type of data it can contain as well as whether it is required, read only, multi-value, and many other qualities. Attribute
+          definitions are identified by a name that is unique within its asset type. Attribute definitions are defined as either value types or relations to other assets. Further, relation attribute definitions can be either single-value or multi-value.</p>
+        <p>For example, the <code>Estimate</code> attribute definition on the <code>Workitem</code> asset type is a scalar (specifically, a Number). On the other hand, the <code>Workitem</code> asset type&#39;s <code>Scope</code> attribute definition is
+          a single-value relation (to a Scope asset). The reverse relation, <code>Workitems</code> on the <code>Scope</code> asset type, is a multi-value relation (to <code>Workitem</code> assets).</p>
+        <h2 id="oid">OID</h2>
+        <p>An OID is a unique system identifier that is not typically visible in the VersionOne user interface. OID Tokens are composed of the name of an asset type and an integer ID. For example, <code>Member:20</code> identifies a <code>Member</code> asset
+          with ID of 20.</p>
+        <p>This is not the same as the user visible Number attribute available on many (but not all) assets.</p>
         <h1 id="attribute-definition-syntax">Attribute Definition Syntax</h1>
         <p>An attribute is a single or multi-value property on an asset. For example a Story has an attribute called Reference which contains text, while the Owners attribute is a multi-value relationship which allows multiple people to own a single Workitem
           asset. Attributes can be very simple such as the previously mentioned Reference attribute or they may be complex including downcasting, filters, and aggregates.</p>
@@ -201,10 +309,7 @@
           <a href="https://V1Host/V1Instance/rest-1.v1/Data/Scope/0/Workitems:Story[Owners.@Count!=&#39;0&#39;].Estimate.@Sum">https://V1Host/V1Instance/rest-1.v1/Data/Scope/0/Workitems:Story[Owners.@Count!=&#39;0&#39;].Estimate.@Sum</a>
         </p>
         <h1 id="-meta-v1">~/meta.v1</h1>
-        <h2 id="-meta-v1">~/meta.v1</h2>
-        <p>This endpoint retrieves a description of all AssetTypes like <code>Story</code>, <code>Defect</code>, <code>Member</code>.</p>
-        <h3 id="http-request">HTTP Request</h3>
-        <p><code>GET http://V1Host/V1Instance/meta.v1</code></p>
+        <h2 id="all-assets">All Assets</h2>
         <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/meta.v1"</span>
   -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
   -H <span class="hljs-string">"Content-Type: application/json"</span>
@@ -280,12 +385,11 @@ v1.queryDefinition().then(<span class="hljs-function"><span class="hljs-params">
 }</code></pre>
           <i class="fa fa-copy"></i>
         </span>
-        <h2 id="-meta-v1-lt-assettype-gt-">~/meta.v1/&lt;AssetType&gt;</h2>
-        <p>This endpoint retrieves a description of an AssetType like <code>Story</code>, <code>Defect</code>, <code>Member</code> or any Asset in the system.</p>
+        <p>This endpoint retrieves a description of all AssetTypes like <code>Story</code>, <code>Defect</code>, <code>Member</code>.</p>
         <h3 id="http-request">HTTP Request</h3>
-        <p><code>GET http://V1Host/V1Instance/meta.v1/&lt;AssetType&gt;</code></p>
-        <aside class="notice"> You must replace <code>&lt;AssetType&gt;</code> with an asset type like <code>Story</code>. </aside>
-        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/meta.v1/&lt;AssetType&gt;"</span>
+        <p><code>GET http://V1Host/V1Instance/meta.v1</code></p>
+        <h2 id="single-asset">Single Asset</h2>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/meta.v1/Member"</span>
   -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
   -H <span class="hljs-string">"Content-Type: application/json"</span>
   -H <span class="hljs-string">"Accept: application/json"</span></code></pre>
@@ -348,10 +452,11 @@ v1.queryDefinition(assetType).then(<span class="hljs-function"><span class="hljs
 }</code></pre>
           <i class="fa fa-copy"></i>
         </span>
-        <h2 id="-meta-v1-member">~/meta.v1/Member</h2>
-        <p>This endpoint retrieves a description of a Member AssetType.</p>
+        <p>This endpoint retrieves a description of an AssetType like <code>Story</code>, <code>Defect</code>, <code>Member</code> or any Asset in the system.</p>
         <h3 id="http-request">HTTP Request</h3>
-        <p><code>GET http://V1Host/V1Instance/meta.v1/Member</code></p>
+        <p><code>GET http://V1Host/V1Instance/meta.v1/&lt;AssetType&gt;</code></p>
+        <aside class="notice"> You must replace <code>&lt;AssetType&gt;</code> with an asset type like <code>Story</code>. </aside>
+        <h2 id="example-asset">Example Asset</h2>
         <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/meta.v1/&lt;AssetType&gt;"</span>
   -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
   -H <span class="hljs-string">"Content-Type: application/json"</span>
@@ -415,6 +520,9 @@ v1.queryDefinition(assetType).then(<span class="hljs-function"><span class="hljs
 }</code></pre>
           <i class="fa fa-copy"></i>
         </span>
+        <p>This endpoint retrieves a description of a Member AssetType.</p>
+        <h3 id="http-request">HTTP Request</h3>
+        <p><code>GET http://V1Host/V1Instance/meta.v1/Member</code></p>
         <h1 id="-api-asset">~/api/asset</h1>
         <h2 id="create">Create</h2>
         <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/api/asset"</span>
@@ -422,7 +530,11 @@ v1.queryDefinition(assetType).then(<span class="hljs-function"><span class="hljs
   -H <span class="hljs-string">"Content-Type: application/json"</span>
   -H <span class="hljs-string">"Accept: application/json"</span>
   --request POST
-  --data <span class="hljs-string">'{"AssetType":"Story", "Name": "Story\s Name", "Scope": "Scope:0"}'</span></code></pre>
+  --data <span class="hljs-string">'{  
+   "AssetType": "Story",
+   "Name": "Story\s Name",
+   "Scope": "Scope:0"
+}'</span></code></pre>
           <i class="fa fa-copy"></i>
         </span>
         <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
@@ -479,9 +591,24 @@ v1.queryDefinition(assetType).then(<span class="hljs-function"><span class="hljs
   -H <span class="hljs-string">"Content-Type: application/json"</span>
   -H <span class="hljs-string">"Accept: application/json"</span>
   --request POST
-  --data <span class="hljs-string">'[{"AssetType":"Story", "Name": "Story\s Name", "Scope": "Scope:0"}, {"AssetType":"Story", "Name": "Story\s Name", "Scope": "Scope:0"}, {"AssetType":"Scope", "Name": "Scope\s Name", "Parent": "Scope:0"}]'</span></code></pre>
-          <i
-            class="fa fa-copy"></i>
+  --data <span class="hljs-string">'[
+    {
+      "AssetType":"Story",
+      "Name": "Story\s Name",
+      "Scope": "Scope:0"
+    },
+    {
+      "AssetType":"Story",
+      "Name": "Story\s Name",
+      "Scope": "Scope:0"
+    },
+    {
+      "AssetType":"Scope",
+      "Name": "Scope\s Name",
+      "Parent": "Scope:0"
+    }
+]'</span></code></pre>
+          <i class="fa fa-copy"></i>
         </span>
         <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
           <i class="fa fa-copy"></i>
@@ -551,7 +678,12 @@ v1.queryDefinition(assetType).then(<span class="hljs-function"><span class="hljs
   -H <span class="hljs-string">"Content-Type: application/json"</span>
   -H <span class="hljs-string">"Accept: application/json"</span>
   --request POST
-  --data <span class="hljs-string">'{"from":"Story:1234", "update": {"Name": "Updated Name"}}'</span></code></pre>
+  --data <span class="hljs-string">'{
+    "from":"Story:1234",
+    "update": {
+      "Name": "Updated Name"
+    }
+}'</span></code></pre>
           <i class="fa fa-copy"></i>
         </span>
         <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
@@ -610,7 +742,15 @@ v1.queryDefinition(assetType).then(<span class="hljs-function"><span class="hljs
   -H <span class="hljs-string">"Content-Type: application/json"</span>
   -H <span class="hljs-string">"Accept: application/json"</span>
   --request POST
-  --data <span class="hljs-string">'{"from":"Story", "where": {"Super": "Epic:1234"}, "update": {"Name": "Updated Story"}}'</span></code></pre>
+  --data <span class="hljs-string">'{
+    "from":"Story",
+    "where": {
+      "Super": "Epic:1234"
+    },
+    "update": {
+      "Name": "Updated Story"
+    }
+}'</span></code></pre>
           <i class="fa fa-copy"></i>
         </span>
         <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
@@ -674,7 +814,10 @@ v1.queryDefinition(assetType).then(<span class="hljs-function"><span class="hljs
   -H <span class="hljs-string">"Content-Type: application/json"</span>
   -H <span class="hljs-string">"Accept: application/json"</span>
   --request POST
-  --data <span class="hljs-string">'{"from":"Member:1234", "execute": "Inactivate"}'</span></code></pre>
+  --data <span class="hljs-string">'{
+    "from":"Member:1234",
+    "execute": "Inactivate"
+}'</span></code></pre>
           <i class="fa fa-copy"></i>
         </span>
         <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
@@ -731,7 +874,12 @@ v1.queryDefinition(assetType).then(<span class="hljs-function"><span class="hljs
   -H <span class="hljs-string">"Content-Type: application/json"</span>
   -H <span class="hljs-string">"Accept: application/json"</span>
   --request POST
-  --data <span class="hljs-string">'{"from":"Story", "filter": [Children[AssetState!="255"].@Count&gt;"0"]}'</span></code></pre>
+  --data <span class="hljs-string">'{
+    "from":"Story",
+    "filter": [
+      Children[AssetState!="255"].@Count&gt;"0"
+    ]
+}'</span></code></pre>
           <i class="fa fa-copy"></i>
         </span>
         <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
@@ -797,7 +945,18 @@ v1.queryDefinition(assetType).then(<span class="hljs-function"><span class="hljs
   -H <span class="hljs-string">"Content-Type: application/json"</span>
   -H <span class="hljs-string">"Accept: application/json"</span>
   --request POST
-  --data <span class="hljs-string">'[{"@newScope": {"AssetType":"Scope", "Name": "New Scope", "Super": "Scope:0"}}, {"@newStory":{{"AssetType":"Story", "Name": "New Story", "Scope": "@newScope"}}]'</span></code></pre>
+  --data <span class="hljs-string">'[ 
+   "@newScope":{  
+      "AssetType":"Scope",
+      "Name":"New Scope",
+      "Super": "Scope:0"
+   },
+   "@newStory":{  
+      "AssetType":"Story",
+      "Name":"New Story",
+      "Scope": "@newScope"
+   },
+]'</span></code></pre>
           <i class="fa fa-copy"></i>
         </span>
         <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
@@ -862,12 +1021,12 @@ v1.queryDefinition(assetType).then(<span class="hljs-function"><span class="hljs
         <h3 id="http-request">HTTP Request</h3>
         <p><code>POST http://V1Host/V1Instance/api/asset</code></p>
         <h1 id="-rest-1-v1-data">~/rest-1.v1/Data</h1>
+        <div class="badge">USE: ~/api/asset</div>
         <p>This endpoint provides read, write, and update access to assets. This endpoint queries for simple or complex sets of information, updates information, and executes system-defined operations.</p>
-        <h2 id="query-params">Query Params</h2>
         <table>
           <thead>
             <tr>
-              <th>param</th>
+              <th>Query Params</th>
               <th>Meaning</th>
             </tr>
           </thead>
@@ -926,19 +1085,277 @@ v1.queryDefinition(assetType).then(<span class="hljs-function"><span class="hljs
             </tr>
           </tbody>
         </table>
-        <h2 id="dichotomy-of-the-reponse">Dichotomy of the Reponse</h2>
-        <h3 id="assets">Assets</h3>
+        <h3 id="dichotomy-of-the-reponse">Dichotomy of the Reponse</h3>
+        <h4 id="assets">Assets</h4>
         <p>When requesting more than a single asset, the assets node helps navigate over the set of assets. The attributes <code>total</code>, <code>pageSize</code>, and <code>pageStart</code> can be used to navigate through a large set.</p>
-        <h3 id="asset">Asset</h3>
+        <h4 id="asset">Asset</h4>
         <p>The Asset node has an <code>href</code> attribute containing the URL path used to retrieve this asset. The asset node has an <code>id</code> attribute with the
           <a href="https://community.versionone.com/VersionOne_Connect/Developer_Library/Getting_Started/Platform_Concepts/OID_Token">OID Token</a> for this asset.</p>
-        <h3 id="attribute">Attribute</h3>
+        <h4 id="attribute">Attribute</h4>
         <p><code>Name</code> refers to an
           <a href="https://community.versionone.com/VersionOne_Connect/Developer_Library/Getting_Started/Platform_Concepts/Attribute_Definition">Attribute Definition</a>.</p>
-        <h3 id="relation">Relation</h3>
+        <h4 id="relation">Relation</h4>
         <p><code>Name</code> refers to an
           <a href="https://community.versionone.com/VersionOne_Connect/Developer_Library/Getting_Started/Platform_Concepts/Attribute_Definition">Attribute Definition</a>. Contains another asset node with an <code>idref</code> to the
           <a href="https://community.versionone.com/VersionOne_Connect/Developer_Library/Getting_Started/Platform_Concepts/OID_Token">OID Token</a> of the referenced asset.</p>
+        <h3 id="request-body">Request Body</h3>
+        <p>Both creating and updating assets via rest-1.v1 has a POST body structured with a collection of attributes. When creating, it can contain Attributes that will exist on the new asset, and when updating it can contain Attributes that will modify
+          an existing Asset.</p>
+        <p>The keys are valid Attribute names for a given Asset. The value of each key is valid based on the following:</p>
+        <ul>
+          <li>
+            <p>
+              <em>Scalars</em>: like <code>Name</code> take a string value.</p>
+          </li>
+          <li>
+            <p>
+              <em>Single-value relation</em>: like <code>Scope</code> takes an OidToken.</p>
+          </li>
+          <li>
+            <p>
+              <em>Multi-value relations</em>: like <code>ChangeSets</code> take an array. Each element of the array specifies an asset to add or remove from the relation and have the shape:
+              <br><code>{ &quot;idref&quot;: &quot;&lt;OidToken&gt;&quot;, &quot;act&quot;: &quot;add&quot; }</code>
+              <br>or
+              <br><code>{ &quot;idref&quot;: &quot;&lt;OidToken&gt;&quot;, &quot;act&quot;: &quot;remove&quot; }</code></p>
+          </li>
+        </ul>
+        <h2 id="query">Query</h2>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/rest-1.v1/Data/&lt;AssetType&gt;"</span>
+  -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
+  -H <span class="hljs-string">"Accept: application/json"</span></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper javascript "><pre class="highlight javascript "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper python "><pre class="highlight python "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json response-wrapper"><pre class="highlight json response"><code>{
+    <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Assets"</span>,
+    <span class="hljs-attr">"total"</span>: <span class="hljs-number">13768</span>,
+    <span class="hljs-attr">"pageSize"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-attr">"pageStart"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"Assets"</span>: [
+        {
+            <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Asset"</span>,
+            <span class="hljs-attr">"href"</span>: <span class="hljs-string">"/V1Instance/rest-1.v1/Data/Story/1234"</span>,
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"Story:1432"</span>,
+            <span class="hljs-attr">"Attributes"</span>: {
+                <span class="hljs-attr">"Name"</span>: {
+                    <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Attribute"</span>,
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Name"</span>,
+                    <span class="hljs-attr">"value"</span>: <span class="hljs-string">"Story Name"</span>
+                },
+                <span class="hljs-attr">"Number"</span>: {
+                    <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Attribute"</span>,
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Number"</span>,
+                    <span class="hljs-attr">"value"</span>: <span class="hljs-string">"S-1001"</span>
+                },
+                <span class="hljs-attr">"Super"</span>: {
+                    <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Attribute"</span>,
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Super"</span>,
+                    <span class="hljs-attr">"value"</span>: <span class="hljs-string">"Epic:1234"</span>
+                }
+            }
+        }
+    ]
+}</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <p>Query for assets of a specific asset type.</p>
+        <h3 id="http-request">HTTP Request</h3>
+        <p><code>GET http://V1Host/V1Instance/rest-1.v1/Data/&lt;AssetType&gt;</code></p>
+        <h2 id="create">Create</h2>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"http://V1Host/V1Instance/rest-1.v1/Data/Story"</span>
+  -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
+  -H <span class="hljs-string">"Accept: application/json"</span>
+  -H <span class="hljs-string">"Content-type: application/json"</span>
+  --request POST
+  --data <span class="hljs-string">'{  
+   "Attributes":{  
+      "Name":{  
+         "value":"New Name",
+         "act":"set"
+      },
+      "Scope":{  
+         "value":"Scope:123",
+         "act":"set"
+      },
+      "ChangeSets":[  
+         {  
+            "idref":"ChangeSet:123",
+            "act":"add"
+         }
+      ]
+   }
+}'</span></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper javascript "><pre class="highlight javascript "><code><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> sdk, { axiosConnector } <span class="hljs-keyword">from</span> <span class="hljs-string">'v1sdk'</span>;
+
+<span class="hljs-keyword">const</span> axiosConnectedSdk = axiosConnector(axios)(sdk);
+<span class="hljs-keyword">const</span> v1 = axiosConnectedSdk(
+    <span class="hljs-string">'V1Host'</span>,
+    <span class="hljs-string">'V1Instance'</span>,
+    <span class="hljs-number">443</span>,
+    <span class="hljs-literal">true</span>
+  )
+  .withAccessToken(<span class="hljs-string">'&lt;access-token&gt;'</span>);
+
+<span class="hljs-keyword">const</span> story = {
+    <span class="hljs-attr">Name</span>: <span class="hljs-string">'New Name'</span>,
+    <span class="hljs-attr">Scope</span>: <span class="hljs-string">'Scope:123'</span>,
+    <span class="hljs-attr">ChangeSets</span>: [<span class="hljs-string">'ChangeSet:123'</span>],
+};
+
+v1.create(story).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(response);
+});</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper python "><pre class="highlight python "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json response-wrapper"><pre class="highlight json response"><code>{
+    <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Assets"</span>,
+    <span class="hljs-attr">"total"</span>: <span class="hljs-number">13768</span>,
+    <span class="hljs-attr">"pageSize"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-attr">"pageStart"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"Assets"</span>: [
+        {
+            <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Asset"</span>,
+            <span class="hljs-attr">"href"</span>: <span class="hljs-string">"/V1Instance/rest-1.v1/Data/Story/1234"</span>,
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"Story:1432"</span>,
+            <span class="hljs-attr">"Attributes"</span>: {
+                <span class="hljs-attr">"Name"</span>: {
+                    <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Attribute"</span>,
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Name"</span>,
+                    <span class="hljs-attr">"value"</span>: <span class="hljs-string">"Story Name"</span>
+                },
+                <span class="hljs-attr">"Number"</span>: {
+                    <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Attribute"</span>,
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Number"</span>,
+                    <span class="hljs-attr">"value"</span>: <span class="hljs-string">"S-1001"</span>
+                },
+                <span class="hljs-attr">"Super"</span>: {
+                    <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Attribute"</span>,
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Super"</span>,
+                    <span class="hljs-attr">"value"</span>: <span class="hljs-string">"Epic:1234"</span>
+                }
+            }
+        }
+    ]
+}</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <p>Update attributes a specific asset</p>
+        <h3 id="http-request">HTTP Request</h3>
+        <p><code>POST http://V1Host/V1Instance/rest-1.v1/Data/&lt;AssetType&gt;</code></p>
+        <h2 id="update">Update</h2>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"http://V1Host/V1Instance/rest-1.v1/Data/Story/123"</span>
+  -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
+  -H <span class="hljs-string">"Accept: application/json"</span>
+  -H <span class="hljs-string">"Content-type: application/json"</span>
+  --request POST
+  --data <span class="hljs-string">'{  
+   "Attributes":{  
+      "Name":{  
+         "value":"Updated Name",
+         "act":"set"
+      },
+      "Scope":{  
+         "value":"Scope:123",
+         "act":"set"
+      },
+      "ChangeSets":[  
+         {  
+            "idref":"ChangeSet:123",
+            "act":"add"
+         },
+         {  
+            "idref":"ChangeSet:987",
+            "act":"remove"
+         }
+      ]
+   }
+}'</span></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper javascript "><pre class="highlight javascript "><code><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> sdk, { axiosConnector } <span class="hljs-keyword">from</span> <span class="hljs-string">'v1sdk'</span>;
+
+<span class="hljs-keyword">const</span> axiosConnectedSdk = axiosConnector(axios)(sdk);
+<span class="hljs-keyword">const</span> v1 = axiosConnectedSdk(
+    <span class="hljs-string">'V1Host'</span>,
+    <span class="hljs-string">'V1Instance'</span>,
+    <span class="hljs-number">443</span>,
+    <span class="hljs-literal">true</span>
+  )
+  .withAccessToken(<span class="hljs-string">'&lt;access-token&gt;'</span>);
+
+<span class="hljs-keyword">const</span> story = {
+    <span class="hljs-attr">Name</span>: <span class="hljs-string">'New Name'</span>,
+    <span class="hljs-attr">Scope</span>: <span class="hljs-string">'Scope:123'</span>,
+    <span class="hljs-attr">ChangeSets</span>: [
+        { <span class="hljs-attr">value</span>: <span class="hljs-string">'ChangeSet:123'</span>, <span class="hljs-attr">act</span>: <span class="hljs-string">'add'</span> },
+        { <span class="hljs-attr">value</span>: <span class="hljs-string">'ChangeSet:987'</span>, <span class="hljs-attr">act</span>: <span class="hljs-string">'remove'</span> },
+    ],
+};
+
+v1.create(story).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(response);
+});</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper python "><pre class="highlight python "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json response-wrapper"><pre class="highlight json response"><code>{
+    <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Assets"</span>,
+    <span class="hljs-attr">"total"</span>: <span class="hljs-number">13768</span>,
+    <span class="hljs-attr">"pageSize"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-attr">"pageStart"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"Assets"</span>: [
+        {
+            <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Asset"</span>,
+            <span class="hljs-attr">"href"</span>: <span class="hljs-string">"/V1Instance/rest-1.v1/Data/Story/1234"</span>,
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"Story:1432"</span>,
+            <span class="hljs-attr">"Attributes"</span>: {
+                <span class="hljs-attr">"Name"</span>: {
+                    <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Attribute"</span>,
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Name"</span>,
+                    <span class="hljs-attr">"value"</span>: <span class="hljs-string">"Story Name"</span>
+                },
+                <span class="hljs-attr">"Number"</span>: {
+                    <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Attribute"</span>,
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Number"</span>,
+                    <span class="hljs-attr">"value"</span>: <span class="hljs-string">"S-1001"</span>
+                },
+                <span class="hljs-attr">"Super"</span>: {
+                    <span class="hljs-attr">"_type"</span>: <span class="hljs-string">"Attribute"</span>,
+                    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Super"</span>,
+                    <span class="hljs-attr">"value"</span>: <span class="hljs-string">"Epic:1234"</span>
+                }
+            }
+        }
+    ]
+}</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <p>Update attributes of a specific asset</p>
+        <h3 id="http-request">HTTP Request</h3>
+        <p><code>POST http://V1Host/V1Instance/rest-1.v1/Data/&lt;AssetType&gt;/&lt;Oid&gt;</code></p>
         <h1 id="-rest-1-v1-hist">~/rest-1.v1/Hist</h1>
         <p>VersionOne maintains history as data changes. Every change to every asset is journaled within the system, and assigned a chronologically-increasing integer called a moment. A past version of an asset is uniquely identified by its asset type, ID,
           and Moment. A past version of a relation attribute will refer to the past version of its target asset.</p>
@@ -952,14 +1369,987 @@ v1.queryDefinition(assetType).then(<span class="hljs-function"><span class="hljs
         <p>In the above example the <code>Story</code> history will have been marked with two distinct moment numbers. The first being moment number 203, the moment the asset was created and the second being when the <code>To Do</code> attribute was changed,
           at moment number 204. As mentioned above moment numbers are not sequential for a specific asset, they are sequential for the entire VersionOne system. Between the time you created the <code>Story</code> asset and the time you changed its <code>To Do</code>          attribute, another user may have changed an entirely different asset in the VersionOne system, thus making a gap in between your <code>Story</code> asset&#39;s moments.</p>
         <h1 id="-query-v1">~/query.v1</h1>
-        <h1 id="-api-activitystream">~/api/activityStream</h1>
-        <p>This endpoint provides read-only access to the activity streams for assets and entities within VersionOne.</p>
-        <aside class="notice"> The activity stream is not guaranteed to contain every change to an asset. To get a full accounting of all changes, you must use the asset history. </aside>
-        <h2 id="query-params">Query Params</h2>
+        <div class="badge">USE: ~/api/asset</div>
+        <p>Read only api that allows retrieval of arbitrarily nested master/detail and hierarchical relationships. (For example, you can retrieve all the <code>Schedules</code> in a <code>Scope</code>, all the <code>Iterations</code> in the <code>Schedules</code>,
+          and all the <code>Workitems</code> in the iterations, all in one go.)</p>
+        <p>An arbitrary number of independent queries can be executed in one HTTP round-trip.</p>
+        <p>####Components of the HTTP POST request body:</p>
         <table>
           <thead>
             <tr>
-              <th>Params</th>
+              <th>Key</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>from</td>
+              <td>Every query must have a &quot;from&quot; key with a string value naming the Asset Type to query. All other keys are optional.</td>
+            </tr>
+            <tr>
+              <td>select</td>
+              <td>In order to retrieve any data, a selection list of the desired attributes is required. These attributes are in the VersionOne Selection Token syntax. Scalar attributes, relations, multivalued attributes, and traversal through a relation
+                to all of the above are suppported.</td>
+            </tr>
+            <tr>
+              <td>filter</td>
+              <td>the filter key is a sequence of VersionOne filter tokens as strings. Filter tokens name an attribute (possible traversing relations) and give a comparison operator and either a comparison value or a context variable that will be defined
+                in the with clause.</td>
+            </tr>
+            <tr>
+              <td>with</td>
+              <td>You may define variables in your filter tokens that will be filled via the with mapping. This can allow parameterization and alleviate quoting issues. <code>with</code> is a mapping of variable names to their values, and is applied over
+                the entire query.</td>
+            </tr>
+            <tr>
+              <td>where</td>
+              <td>the where key takes a value that is also a mapping. The keys of the mapping are taken as selection tokens, and the values of the mapping are taken as the value to compare against in an &quot;equal&quot; comparison.</td>
+            </tr>
+            <tr>
+              <td>sorting</td>
+              <td>Any selection token can be used to sort the results. include a &quot;sort&quot; key with a value that is a list of selection tokens to sort by. Tokens can be preceded by + or - to indicate ascending or descending sort.</td>
+            </tr>
+            <tr>
+              <td>grouping</td>
+              <td>You may group a set of assets by a related-to value. For example, stories can be grouped by status. The queried assets are returned in the _children element of the grouped-on asset.</td>
+            </tr>
+            <tr>
+              <td>find</td>
+              <td>provides basic substring matching</td>
+            </tr>
+            <tr>
+              <td>findin</td>
+              <td>list of selected attributes to search in</td>
+            </tr>
+            <tr>
+              <td>page</td>
+              <td>You may limit the number of returned results, or start retrieving results starting from a particular index. Results are returned in ID order if no other sorting is applied, so paging will always be deterministic</td>
+            </tr>
+            <tr>
+              <td>asof</td>
+              <td>Historical data is kept for all assets, and you may query for the state of assets &quot;as of&quot; a particular point in time. The asof value is a string with a timestamp in ISO format.</td>
+            </tr>
+          </tbody>
+        </table>
+        <h4 id="response">Response</h4>
+        <p>Data is returned as a sequence of result sets. Each result set is a sequence that contains the results from one query mapping. Each result is a JSON object with fields for the selections you defined in the query mapping.</p>
+        <h2 id="query">Query</h2>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/query.v1"</span>
+  -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
+  -H <span class="hljs-string">"Content-Type: application/json"</span>
+  -H <span class="hljs-string">"Accept: application/json"</span>
+  --request POST
+  --data <span class="hljs-string">'{
+    "from": "Story",
+    "select": [ 
+        "Name",
+        {
+          "from": "Owners",
+          "select": [
+            "Name",
+            "Avatar.Content"
+          ]
+        }
+    ]
+}'</span></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper javascript "><pre class="highlight javascript "><code><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> sdk, { axiosConnector } <span class="hljs-keyword">from</span> <span class="hljs-string">'v1sdk'</span>;
+
+<span class="hljs-keyword">const</span> axiosConnectedSdk = axiosConnector(axios)(sdk);
+<span class="hljs-keyword">const</span> v1 = axiosConnectedSdk(
+    <span class="hljs-string">'V1Host'</span>,
+    <span class="hljs-string">'V1Instance'</span>,
+    <span class="hljs-number">443</span>,
+    <span class="hljs-literal">true</span>
+  )
+  .withAccessToken(<span class="hljs-string">'&lt;access-token&gt;'</span>);
+
+<span class="hljs-keyword">const</span> query = {
+    <span class="hljs-attr">from</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">select</span>: [ 
+        <span class="hljs-string">"Name"</span>,
+        {
+          <span class="hljs-attr">from</span>: <span class="hljs-string">"Owners"</span>,
+          <span class="hljs-attr">select</span>: [
+            <span class="hljs-string">"Name"</span>,
+            <span class="hljs-string">"Avatar.Content"</span>
+          ]
+        }
+    ]
+};
+
+v1.query(query).then(<span class="hljs-function"><span class="hljs-params">assets</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(assets);
+});</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json "><pre class="highlight json "><code>{
+    <span class="hljs-attr">"from"</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">"select"</span>: [ 
+        <span class="hljs-string">"Name"</span>,
+        <span class="hljs-string">"Scope.Name"</span>
+    ]
+}</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper python "><pre class="highlight python "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json response-wrapper"><pre class="highlight json response"><code>[
+    [
+        {
+            <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1234"</span>,
+            <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Their Story"</span>,
+            <span class="hljs-attr">"Scope.Name"</span>: <span class="hljs-string">"Project A"</span>
+        },
+        {
+            <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:5678"</span>,
+            <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"My Story"</span>,
+            <span class="hljs-attr">"Scope.Name"</span>: <span class="hljs-string">"Project B"</span>
+        }
+    ]
+]</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <p>Retrieve only the attributes you need from an asset.</p>
+        <h3 id="http-request">HTTP Request</h3>
+        <p><code>POST http://V1Host/V1Instance/query.v1</code></p>
+        <h2 id="subselect">Subselect</h2>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/api/asset"</span>
+  -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
+  -H <span class="hljs-string">"Content-Type: application/json"</span>
+  -H <span class="hljs-string">"Accept: application/json"</span>
+  --request POST
+  --data <span class="hljs-string">'{
+    "from": "Story",
+    "select": [ 
+        "Name",
+        "Owners.@Count",
+        {
+          "from": "Owners",
+          "select": [
+            "Name",
+            "Avatar.Content"
+          ]
+        }
+    ]
+}'</span></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper javascript "><pre class="highlight javascript "><code><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> sdk, { axiosConnector } <span class="hljs-keyword">from</span> <span class="hljs-string">'v1sdk'</span>;
+
+<span class="hljs-keyword">const</span> axiosConnectedSdk = axiosConnector(axios)(sdk);
+<span class="hljs-keyword">const</span> v1 = axiosConnectedSdk(
+    <span class="hljs-string">'V1Host'</span>,
+    <span class="hljs-string">'V1Instance'</span>,
+    <span class="hljs-number">443</span>,
+    <span class="hljs-literal">true</span>
+  )
+  .withAccessToken(<span class="hljs-string">'&lt;access-token&gt;'</span>);
+
+<span class="hljs-keyword">const</span> query = {
+    <span class="hljs-attr">from</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">select</span>: [ 
+        <span class="hljs-string">"Name"</span>,
+        {
+          <span class="hljs-attr">from</span>: <span class="hljs-string">"Owners"</span>,
+          <span class="hljs-attr">select</span>: [
+            <span class="hljs-string">"Name"</span>,
+            <span class="hljs-string">"Avatar.Content"</span>
+          ]
+        }
+    ]
+};
+
+v1.query(query).then(<span class="hljs-function"><span class="hljs-params">assets</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(assets);
+});</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json "><pre class="highlight json "><code>{
+    <span class="hljs-attr">"from"</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">"select"</span>: [ 
+        <span class="hljs-string">"Name"</span>,
+        <span class="hljs-string">"Owners.@Count"</span>,
+        {
+          <span class="hljs-attr">"from"</span>: <span class="hljs-string">"Owners"</span>,
+          <span class="hljs-attr">"select"</span>: [
+            <span class="hljs-string">"Name"</span>,
+            <span class="hljs-string">"Avatar.Content"</span>
+          ]
+        }
+    ]
+}</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper python "><pre class="highlight python "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json response-wrapper"><pre class="highlight json response"><code>[
+    [
+        {
+            <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1234"</span>,
+            <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Story Name"</span>,
+            <span class="hljs-attr">"Owners.@Count"</span>: <span class="hljs-string">"2"</span>,
+            <span class="hljs-attr">"Owners"</span>: [
+                {
+                    <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Member:1234"</span>,
+                    <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Andre Agile"</span>,
+                    <span class="hljs-attr">"Avatar.Content"</span>: <span class="hljs-string">"iVBORw0KGgoAAAANSUh/ORK5CYII="</span>
+                },
+                {
+                    <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Member:2345"</span>,
+                    <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Alice Agility"</span>,
+                    <span class="hljs-attr">"Avatar.Content"</span>: <span class="hljs-string">"/9j/4AAQSkZJRgABAQEAYAjlr2P/2Q=="</span>
+                }
+            ]
+        }
+    ]
+]</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <p>Sub select a relation.</p>
+        <h3 id="http-request">HTTP Request</h3>
+        <p><code>POST http://V1Host/V1Instance/query.v1</code></p>
+        <h2 id="filter">Filter</h2>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/query.v1"</span>
+  -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
+  -H <span class="hljs-string">"Content-Type: application/json"</span>
+  -H <span class="hljs-string">"Accept: application/json"</span>
+  --request POST
+  --data <span class="hljs-string">'{
+    "from": "Story",
+    "select": [ 
+        "Name",
+        "Owners.@Count"
+    ],
+    "filter": [
+      "Owners.@Count&gt;'</span>2<span class="hljs-string">'"
+    ]
+}'</span></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper javascript "><pre class="highlight javascript "><code><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> sdk, { axiosConnector } <span class="hljs-keyword">from</span> <span class="hljs-string">'v1sdk'</span>;
+
+<span class="hljs-keyword">const</span> axiosConnectedSdk = axiosConnector(axios)(sdk);
+<span class="hljs-keyword">const</span> v1 = axiosConnectedSdk(
+    <span class="hljs-string">'V1Host'</span>,
+    <span class="hljs-string">'V1Instance'</span>,
+    <span class="hljs-number">443</span>,
+    <span class="hljs-literal">true</span>
+  )
+  .withAccessToken(<span class="hljs-string">'&lt;access-token&gt;'</span>);
+
+<span class="hljs-keyword">const</span> query = {
+    <span class="hljs-attr">from</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">select</span>: [ 
+        <span class="hljs-string">"Name"</span>,
+        <span class="hljs-string">"Owners.@Count"</span>
+    ],
+    <span class="hljs-attr">filter</span>: [
+      <span class="hljs-string">"Owners.@Count&gt;'2'"</span>
+    ]
+};
+
+v1.query(query).then(<span class="hljs-function"><span class="hljs-params">assets</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(assets);
+});</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json "><pre class="highlight json "><code>{
+    <span class="hljs-attr">"from"</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">"select"</span>: [ 
+        <span class="hljs-string">"Name"</span>,
+        <span class="hljs-string">"Owners.@Count"</span>
+    ],
+    <span class="hljs-attr">"filter"</span>: [
+      <span class="hljs-string">"Owners.@Count&gt;'2'"</span>
+    ]
+}</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper python "><pre class="highlight python "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json response-wrapper"><pre class="highlight json response"><code>[
+  [
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1234"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Story Two"</span>,
+      <span class="hljs-attr">"Owners.@Count"</span>: <span class="hljs-string">"3"</span>
+    },
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:4567"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Story Two"</span>,
+      <span class="hljs-attr">"Owners.@Count"</span>: <span class="hljs-string">"1"</span>
+    }
+  ]
+]</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <p>Filter on a collection of filter tokens which apply comparison operators to attributes and values.</p>
+        <h3 id="http-request">HTTP Request</h3>
+        <p><code>POST http://V1Host/V1Instance/query.v1</code></p>
+        <h2 id="where">Where</h2>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/query.v1"</span>
+  -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
+  -H <span class="hljs-string">"Content-Type: application/json"</span>
+  -H <span class="hljs-string">"Accept: application/json"</span>
+  --request POST
+  --data <span class="hljs-string">'{
+    "from": "Story",
+    "select": [ 
+        "Name"
+    ],
+    "where": {
+      "Scope": "Scope:1234"
+    }
+}'</span></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper javascript "><pre class="highlight javascript "><code><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> sdk, { axiosConnector } <span class="hljs-keyword">from</span> <span class="hljs-string">'v1sdk'</span>;
+
+<span class="hljs-keyword">const</span> axiosConnectedSdk = axiosConnector(axios)(sdk);
+<span class="hljs-keyword">const</span> v1 = axiosConnectedSdk(
+    <span class="hljs-string">'V1Host'</span>,
+    <span class="hljs-string">'V1Instance'</span>,
+    <span class="hljs-number">443</span>,
+    <span class="hljs-literal">true</span>
+  )
+  .withAccessToken(<span class="hljs-string">'&lt;access-token&gt;'</span>);
+
+<span class="hljs-keyword">const</span> query = {
+    <span class="hljs-attr">from</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">select</span>: [ 
+        <span class="hljs-string">"Name"</span>
+    ],
+    <span class="hljs-attr">where</span>: {
+      <span class="hljs-string">"Scope"</span>: <span class="hljs-string">"Scope:1234"</span>
+    }
+};
+
+v1.query(query).then(<span class="hljs-function"><span class="hljs-params">assets</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(assets);
+});</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json "><pre class="highlight json "><code>{
+    <span class="hljs-attr">"from"</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">"select"</span>: [ 
+        <span class="hljs-string">"Name"</span>
+    ],
+    <span class="hljs-attr">"where"</span>: {
+      <span class="hljs-attr">"Scope"</span>: <span class="hljs-string">"Scope:1234"</span>
+    }
+}</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper python "><pre class="highlight python "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json response-wrapper"><pre class="highlight json response"><code>[
+    [
+        {
+            <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1234"</span>,
+            <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Story Name"</span>
+        }
+    ]
+]</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <p>the where key takes a value that is also a mapping. The keys of the mapping are taken as selection tokens, and the values of the mapping are taken as the value to compare against in an &quot;equal&quot; comparison.</p>
+        <h3 id="http-request">HTTP Request</h3>
+        <p><code>POST http://V1Host/V1Instance/query.v1</code></p>
+        <h2 id="with">With</h2>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/query.v1"</span>
+  -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
+  -H <span class="hljs-string">"Content-Type: application/json"</span>
+  -H <span class="hljs-string">"Accept: application/json"</span>
+  --request POST
+  --data <span class="hljs-string">'{
+    "from": "Story",
+    "select": [ 
+        "Name"
+    ],
+    "filter": [
+      "Name=$myName"
+    ],
+    "where": {
+      "Scope": "$myScope"
+    },
+    "with": {
+      "$myScope": "Scope:1234",
+      "$myName": "Alice Agility"
+    }
+}'</span></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper javascript "><pre class="highlight javascript "><code><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> sdk, { axiosConnector } <span class="hljs-keyword">from</span> <span class="hljs-string">'v1sdk'</span>;
+
+<span class="hljs-keyword">const</span> axiosConnectedSdk = axiosConnector(axios)(sdk);
+<span class="hljs-keyword">const</span> v1 = axiosConnectedSdk(
+    <span class="hljs-string">'V1Host'</span>,
+    <span class="hljs-string">'V1Instance'</span>,
+    <span class="hljs-number">443</span>,
+    <span class="hljs-literal">true</span>
+  )
+  .withAccessToken(<span class="hljs-string">'&lt;access-token&gt;'</span>);
+
+<span class="hljs-keyword">const</span> query = {
+    <span class="hljs-attr">from</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">select</span>: [ 
+        <span class="hljs-string">"Name"</span>
+    ],
+    <span class="hljs-attr">filter</span>: [
+      <span class="hljs-string">"Name=$myName"</span>
+    ],
+    <span class="hljs-attr">where</span>: {
+      <span class="hljs-string">"Scope"</span>: <span class="hljs-string">"$myScope"</span>
+    },
+    <span class="hljs-attr">with</span>: {
+      <span class="hljs-string">"$myScope"</span>: <span class="hljs-string">"Scope:1234"</span>,
+      <span class="hljs-string">"$myName"</span>: <span class="hljs-string">"Alice Agility"</span>
+    }
+};
+
+v1.query(query).then(<span class="hljs-function"><span class="hljs-params">assets</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(assets);
+});</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json "><pre class="highlight json "><code>{
+    <span class="hljs-attr">"from"</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">"select"</span>: [ 
+        <span class="hljs-string">"Name"</span>
+    ],
+    <span class="hljs-attr">"filter"</span>: [
+      <span class="hljs-string">"Name=$myName"</span>
+    ],
+    <span class="hljs-attr">"where"</span>: {
+      <span class="hljs-attr">"Scope"</span>: <span class="hljs-string">"$myScope"</span>
+    },
+    <span class="hljs-attr">"with"</span>: {
+      <span class="hljs-attr">"$myScope"</span>: <span class="hljs-string">"Scope:1234"</span>,
+      <span class="hljs-attr">"$myName"</span>: <span class="hljs-string">"Alice Agility"</span>
+    }
+}</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper python "><pre class="highlight python "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json response-wrapper"><pre class="highlight json response"><code>[
+    [
+        {
+            <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1234"</span>,
+            <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Story Name"</span>
+        }
+    ]
+]</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <p>Provide context to <code>where</code> clauses or <code>filter</code> with variables. </p>
+        <h3 id="http-request">HTTP Request</h3>
+        <p><code>POST http://V1Host/V1Instance/query.v1</code></p>
+        <h2 id="sort">Sort</h2>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/query.v1"</span>
+  -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
+  -H <span class="hljs-string">"Content-Type: application/json"</span>
+  -H <span class="hljs-string">"Accept: application/json"</span>
+  --request POST
+  --data <span class="hljs-string">'{
+    "from": "Story",
+    "select": [ 
+        "Name",
+        "Estimate"
+    ],
+    "sort": [
+      "+Name",
+      "-Estimate"
+    ]
+}'</span></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper javascript "><pre class="highlight javascript "><code><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> sdk, { axiosConnector } <span class="hljs-keyword">from</span> <span class="hljs-string">'v1sdk'</span>;
+
+<span class="hljs-keyword">const</span> axiosConnectedSdk = axiosConnector(axios)(sdk);
+<span class="hljs-keyword">const</span> v1 = axiosConnectedSdk(
+    <span class="hljs-string">'V1Host'</span>,
+    <span class="hljs-string">'V1Instance'</span>,
+    <span class="hljs-number">443</span>,
+    <span class="hljs-literal">true</span>
+  )
+  .withAccessToken(<span class="hljs-string">'&lt;access-token&gt;'</span>);
+
+<span class="hljs-keyword">const</span> query = {
+    <span class="hljs-attr">from</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">select</span>: [ 
+        <span class="hljs-string">"Name"</span>,
+        <span class="hljs-string">"Estimate"</span>
+    ],
+    <span class="hljs-attr">sort</span>: [
+      <span class="hljs-string">"+Name"</span>,
+      <span class="hljs-string">"-Estimate"</span>
+    ]
+};
+
+v1.query(query).then(<span class="hljs-function"><span class="hljs-params">assets</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(assets);
+});</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json "><pre class="highlight json "><code>{
+    <span class="hljs-attr">"from"</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">"select"</span>: [ 
+        <span class="hljs-string">"Name"</span>,
+        <span class="hljs-string">"Estimate"</span>
+    ],
+    <span class="hljs-attr">"sort"</span>: [
+      <span class="hljs-string">"+Name"</span>,
+      <span class="hljs-string">"-Estimate"</span>
+    ]
+}</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper python "><pre class="highlight python "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json response-wrapper"><pre class="highlight json response"><code>[
+  [
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1234"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Story A"</span>,
+      <span class="hljs-attr">"Estimate"</span>: <span class="hljs-string">"3"</span>
+    },
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1234"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Story A"</span>,
+      <span class="hljs-attr">"Estimate"</span>: <span class="hljs-string">"1"</span>
+    },
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:4567"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Story B"</span>,
+      <span class="hljs-attr">"Estimate"</span>: <span class="hljs-string">"5"</span>
+    }
+  ]
+]</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <p>Sort by selection tokens with ascending <code>+</code> or descending <code>-</code> order.</p>
+        <h3 id="http-request">HTTP Request</h3>
+        <p><code>POST http://V1Host/V1Instance/query.v1</code></p>
+        <h2 id="group">Group</h2>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/query.v1"</span>
+  -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
+  -H <span class="hljs-string">"Content-Type: application/json"</span>
+  -H <span class="hljs-string">"Accept: application/json"</span>
+  --request POST
+  --data <span class="hljs-string">'{
+    "from": "Story",
+    "select": [ 
+        "Name",
+        "Number"
+    ],
+    "group": [
+      {
+        "from": "Status",
+        "select": [
+          "Name"
+        ]
+      }
+    ]
+}'</span></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper javascript "><pre class="highlight javascript "><code><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> sdk, { axiosConnector } <span class="hljs-keyword">from</span> <span class="hljs-string">'v1sdk'</span>;
+
+<span class="hljs-keyword">const</span> axiosConnectedSdk = axiosConnector(axios)(sdk);
+<span class="hljs-keyword">const</span> v1 = axiosConnectedSdk(
+    <span class="hljs-string">'V1Host'</span>,
+    <span class="hljs-string">'V1Instance'</span>,
+    <span class="hljs-number">443</span>,
+    <span class="hljs-literal">true</span>
+  )
+  .withAccessToken(<span class="hljs-string">'&lt;access-token&gt;'</span>);
+
+<span class="hljs-keyword">const</span> query = {
+    <span class="hljs-attr">from</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">select</span>: [ 
+        <span class="hljs-string">"Name"</span>,
+        <span class="hljs-string">"Number"</span>
+    ],
+    <span class="hljs-attr">group</span>: [
+      {
+        <span class="hljs-string">"from"</span>: <span class="hljs-string">"Status"</span>,
+        <span class="hljs-string">"select"</span>: [
+          <span class="hljs-string">"Name"</span>
+        ]
+      }
+    ]
+};
+
+v1.query(query).then(<span class="hljs-function"><span class="hljs-params">assets</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(assets);
+});</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json "><pre class="highlight json "><code>{
+    <span class="hljs-attr">"from"</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">"select"</span>: [ 
+        <span class="hljs-string">"Name"</span>,
+        <span class="hljs-string">"Number"</span>
+    ],
+    <span class="hljs-attr">"group"</span>: [
+      {
+        <span class="hljs-attr">"from"</span>: <span class="hljs-string">"Status"</span>,
+        <span class="hljs-attr">"select"</span>: [
+          <span class="hljs-string">"Name"</span>
+        ]
+      }
+    ]
+}</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper python "><pre class="highlight python "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json response-wrapper"><pre class="highlight json response"><code>[
+  [
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"NULL"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">"_children"</span>: [
+        {
+          <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1215"</span>,
+          <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"User Interface Story"</span>,
+          <span class="hljs-attr">"Number"</span>: <span class="hljs-string">"S-01054"</span>
+        }
+      ]
+    },
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"StoryStatus:133"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Future"</span>,
+      <span class="hljs-attr">"_children"</span>: [
+        {
+          <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1153"</span>,
+          <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Partnerships"</span>,
+          <span class="hljs-attr">"Number"</span>: <span class="hljs-string">"S-01009"</span>
+        }
+      ]
+    },
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"StoryStatus:134"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"In Progress"</span>,
+      <span class="hljs-attr">"_children"</span>: [
+        {
+          <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1194"</span>,
+          <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Enter RMA"</span>,
+          <span class="hljs-attr">"Number"</span>: <span class="hljs-string">"S-01038"</span>
+        },
+        {
+          <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1196"</span>,
+          <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Add Shipping Notes"</span>,
+          <span class="hljs-attr">"Number"</span>: <span class="hljs-string">"S-01039"</span>
+        }
+      ]
+    }
+  ]
+]</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <p>You may group a set of assets by a related-to value. For example, stories can be grouped by status. The queried assets are returned in the _children element of the grouped-on asset.</p>
+        <h3 id="http-request">HTTP Request</h3>
+        <p><code>POST http://V1Host/V1Instance/query.v1</code></p>
+        <h2 id="page">Page</h2>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/query.v1"</span>
+  -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
+  -H <span class="hljs-string">"Content-Type: application/json"</span>
+  -H <span class="hljs-string">"Accept: application/json"</span>
+  --request POST
+  --data <span class="hljs-string">'{
+    "from": "Story",
+    "select": [ 
+        "Name"
+    ],
+    "page" {
+        "start": "0",
+        "size": "5"
+    }
+}'</span></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper javascript "><pre class="highlight javascript "><code><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> sdk, { axiosConnector } <span class="hljs-keyword">from</span> <span class="hljs-string">'v1sdk'</span>;
+
+<span class="hljs-keyword">const</span> axiosConnectedSdk = axiosConnector(axios)(sdk);
+<span class="hljs-keyword">const</span> v1 = axiosConnectedSdk(
+    <span class="hljs-string">'V1Host'</span>,
+    <span class="hljs-string">'V1Instance'</span>,
+    <span class="hljs-number">443</span>,
+    <span class="hljs-literal">true</span>
+  )
+  .withAccessToken(<span class="hljs-string">'&lt;access-token&gt;'</span>);
+
+<span class="hljs-keyword">const</span> query = {
+    <span class="hljs-attr">from</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">select</span>: [ 
+        <span class="hljs-string">"Name"</span>
+    ],
+    <span class="hljs-attr">page</span>: {
+        <span class="hljs-attr">start</span>: <span class="hljs-string">"0"</span>,
+        <span class="hljs-attr">size</span>: <span class="hljs-string">"5"</span>
+    }
+};
+
+v1.query(query).then(<span class="hljs-function"><span class="hljs-params">assets</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(assets);
+});</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json "><pre class="highlight json "><code>{
+    <span class="hljs-attr">"from"</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">"select"</span>: [ 
+        <span class="hljs-string">"Name"</span>
+    ],
+    <span class="hljs-attr">"page"</span>: {
+        <span class="hljs-attr">"start"</span>: <span class="hljs-string">"0"</span>,
+        <span class="hljs-attr">"size"</span>: <span class="hljs-string">"5"</span>
+    }
+}</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper python "><pre class="highlight python "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json response-wrapper"><pre class="highlight json response"><code>[
+  [
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1234"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Story One"</span>
+    },
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:2345"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Story Two"</span>
+    },
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:3456"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Story Three"</span>
+    },
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:4567"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Story Four"</span>
+    },
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:5678"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"No more than page size of 5!"</span>
+    }
+  ]
+]</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <p>You may limit the number of returned results, or start retrieving results starting from a particular index.</p>
+        <p>Results are returned in ID order if no other sorting is applied, so paging will always be deterministic.</p>
+        <p>Paging only works for the topmost query. You cannot limit/page the results of subselections.</p>
+        <h3 id="http-request">HTTP Request</h3>
+        <p><code>POST http://V1Host/V1Instance/query.v1</code></p>
+        <h2 id="find-and-findin">Find and Findin</h2>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/query.v1"</span>
+  -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
+  -H <span class="hljs-string">"Content-Type: application/json"</span>
+  -H <span class="hljs-string">"Accept: application/json"</span>
+  --request POST
+  --data <span class="hljs-string">'{
+    "from": "Story",
+    "select": [ 
+        "Name"
+    ],
+    "find": "As a user",
+    "findin": [
+      "Name"
+    ]
+}'</span></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper javascript "><pre class="highlight javascript "><code><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> sdk, { axiosConnector } <span class="hljs-keyword">from</span> <span class="hljs-string">'v1sdk'</span>;
+
+<span class="hljs-keyword">const</span> axiosConnectedSdk = axiosConnector(axios)(sdk);
+<span class="hljs-keyword">const</span> v1 = axiosConnectedSdk(
+    <span class="hljs-string">'V1Host'</span>,
+    <span class="hljs-string">'V1Instance'</span>,
+    <span class="hljs-number">443</span>,
+    <span class="hljs-literal">true</span>
+  )
+  .withAccessToken(<span class="hljs-string">'&lt;access-token&gt;'</span>);
+
+<span class="hljs-keyword">const</span> query = {
+    <span class="hljs-attr">from</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">select</span>: [ 
+        <span class="hljs-string">"Name"</span>
+    ],
+    <span class="hljs-attr">find</span>: <span class="hljs-string">"As a user"</span>,
+    <span class="hljs-attr">findin</span>: [
+      <span class="hljs-string">"Name"</span>
+    ]
+};
+
+v1.query(query).then(<span class="hljs-function"><span class="hljs-params">assets</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(assets);
+});</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json "><pre class="highlight json "><code>{
+    <span class="hljs-attr">"from"</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">"select"</span>: [ 
+        <span class="hljs-string">"Name"</span>
+    ],
+    <span class="hljs-attr">"find"</span>: <span class="hljs-string">"As a user"</span>,
+    <span class="hljs-attr">"findin"</span>: [
+      <span class="hljs-string">"Name"</span>
+    ]
+}</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper python "><pre class="highlight python "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json response-wrapper"><pre class="highlight json response"><code>[
+  [
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1234"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"As a user I can do X"</span>
+    },
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:4567"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"As a user I can do Y"</span>
+    }
+  ]
+]</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <p><code>find</code> contains a search term and <code>findin</code> specifies which attributes to locate the term within.</p>
+        <h3 id="http-request">HTTP Request</h3>
+        <p><code>POST http://V1Host/V1Instance/query.v1</code></p>
+        <h2 id="asof">Asof</h2>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/query.v1"</span>
+  -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
+  -H <span class="hljs-string">"Content-Type: application/json"</span>
+  -H <span class="hljs-string">"Accept: application/json"</span>
+  --request POST
+  --data <span class="hljs-string">'{
+    "from": "Story",
+    "select": [ 
+        "Name",
+        "ChangeDateUTC"
+    ],
+    "asof": "2016-01-01"
+}'</span></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper javascript "><pre class="highlight javascript "><code><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<span class="hljs-keyword">import</span> sdk, { axiosConnector } <span class="hljs-keyword">from</span> <span class="hljs-string">'v1sdk'</span>;
+
+<span class="hljs-keyword">const</span> axiosConnectedSdk = axiosConnector(axios)(sdk);
+<span class="hljs-keyword">const</span> v1 = axiosConnectedSdk(
+    <span class="hljs-string">'V1Host'</span>,
+    <span class="hljs-string">'V1Instance'</span>,
+    <span class="hljs-number">443</span>,
+    <span class="hljs-literal">true</span>
+  )
+  .withAccessToken(<span class="hljs-string">'&lt;access-token&gt;'</span>);
+
+<span class="hljs-keyword">const</span> query = {
+    <span class="hljs-attr">from</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">select</span>: [ 
+        <span class="hljs-string">"Name"</span>,
+        <span class="hljs-string">"ChangeDateUTC"</span>,
+    ],
+    <span class="hljs-attr">asof</span>: <span class="hljs-string">"2016-01-01"</span>
+};
+
+v1.query(query).then(<span class="hljs-function"><span class="hljs-params">assets</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(assets);
+});</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json "><pre class="highlight json "><code>{
+    <span class="hljs-attr">"from"</span>: <span class="hljs-string">"Story"</span>,
+    <span class="hljs-attr">"select"</span>: [ 
+        <span class="hljs-string">"Name"</span>,
+        <span class="hljs-string">"ChangeDateUTC"</span>
+    ],
+    <span class="hljs-attr">"asof"</span>: <span class="hljs-string">"2016-01-01"</span>
+}</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper python "><pre class="highlight python "><code></code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <span class="code-wrapper json response-wrapper"><pre class="highlight json response"><code>[
+  [
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1234:1265"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Name"</span>,
+      <span class="hljs-attr">"ChangeDateUTC"</span>: <span class="hljs-string">"2017-09-06T15:06:26.7530000Z"</span>,
+    },
+    {
+      <span class="hljs-attr">"_oid"</span>: <span class="hljs-string">"Story:1234:1266"</span>,
+      <span class="hljs-attr">"Name"</span>: <span class="hljs-string">"Updated Name"</span>,
+      <span class="hljs-attr">"ChangeDateUTC"</span>: <span class="hljs-string">"2017-09-06T17:06:26.7530000Z"</span>,
+    }
+  ]
+]</code></pre>
+          <i class="fa fa-copy"></i>
+        </span>
+        <p>Historical data is kept for all assets, and you may query for the state of assets &quot;as of&quot; a particular point in time. The asof value is a string with a timestamp in ISO format.</p>
+        <h3 id="http-request">HTTP Request</h3>
+        <p><code>POST http://V1Host/V1Instance/query.v1</code></p>
+        <aside class="notice"> <code>asof</code> can be set to <code>All</code> to see all hiistory </aside>
+        <h1 id="-api-activitystream">~/api/activityStream</h1>
+        <p>This endpoint provides read-only access to the activity streams for assets and entities within VersionOne.</p>
+        <aside class="notice"> The activity stream is not guaranteed to contain every change to an asset. To get a full accounting of all changes, you must use the asset history. </aside>
+        <table>
+          <thead>
+            <tr>
+              <th>Query Params</th>
               <th>Meaning</th>
             </tr>
           </thead>
@@ -978,10 +2368,11 @@ v1.queryDefinition(assetType).then(<span class="hljs-function"><span class="hljs
             </tr>
             <tr>
               <td>verbs</td>
-              <td>A comma-separated list of verbs to act as a filter on the activity returned. By default, no filter is applied. Valid verbs are:</td>
+              <td>A comma-separated list of verbs to act as a filter on the activity returned. By default, no filter is applied.</td>
             </tr>
           </tbody>
         </table>
+        <p>Valid verbs are:</p>
         <ul>
           <li>Added</li>
           <li>Blocked</li>
@@ -998,7 +2389,7 @@ v1.queryDefinition(assetType).then(<span class="hljs-function"><span class="hljs
           <li>Activated</li>
           <li>Deactivated</li>
         </ul>
-        <h2 id="-api-activitystream">~/api/activityStream</h2>
+        <h2 id="query-activity">Query Activity</h2>
         <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/api/ActivityStream/&lt;OidToken&gt;"</span>
   -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
   -H <span class="hljs-string">"Accept: application/json"</span></code></pre>
@@ -1096,7 +2487,7 @@ v1.activityStream(<span class="hljs-string">'Story:1234'</span>).then(<span clas
         </span>
         <p>View the activities for asset with the given <code>OidToken</code></p>
         <h3 id="http-request">HTTP Request</h3>
-        <p><code>GET http://V1Host/V1Instance/api/ActivityStream/&lt;OidToken&gt;</code></p>
+        <p><code>GET http://V1Host/V1Instance/api/ActivityStream/Story:123</code></p>
         <h1 id="-api-tags">~/api/tags</h1>
         <p>First and foremost Tags are values that exist on most BaseAssets. Tags exist only in the context of the Assets they are added to. This means adding (and removing) tags for an Asset should be done via rest-1.v1/Data.</p>
         <p>As of now Tags have been exposed on the following Assets via the AttributeDefinition TaggedWith</p>
@@ -1110,7 +2501,7 @@ v1.activityStream(<span class="hljs-string">'Story:1234'</span>).then(<span clas
           <li>Regression Test</li>
         </ul>
         <h2 id="single-tag">Single Tag</h2>
-        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/api/tags?tag=&lt;tag&gt;"</span>
+        <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/api/tags?tag='UX'"</span>
   -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
   -H <span class="hljs-string">"Accept: application/json"</span></code></pre>
           <i class="fa fa-copy"></i>
@@ -1198,14 +2589,20 @@ v1.activityStream(<span class="hljs-string">'Story:1234'</span>).then(<span clas
         </span>
         <p>The following example returns an array of tags that match the search term.</p>
         <h3 id="http-request">HTTP Request</h3>
-        <p><code>GET http://V1Host/V1Instance/api/tags/command/search?term=Test</code></p>
+        <p><code>GET http://V1Host/V1Instance/api/tags/command/search?term=&lt;term&gt;</code></p>
         <h2 id="merge-tags">Merge Tags</h2>
         <span class="code-wrapper bash "><pre class="highlight bash "><code>curl <span class="hljs-string">"https://V1Host/V1Instance/api/tags/command/merge"</span>
   -H <span class="hljs-string">"Authorization: Bearer &lt;access-token&gt;"</span>
   -H <span class="hljs-string">"Content-Type: application/json"</span>
   -H <span class="hljs-string">"Accept: application/json"</span>
   --request POST
-  --data <span class="hljs-string">'{"MergeTo": "Regression Tests", "MergeFrom": ["RegressionTests", "RegTests"]}'</span></code></pre>
+  --data <span class="hljs-string">'{
+    "MergeTo": "Regression Tests",
+    "MergeFrom": [
+      "RegressionTests",
+      "RegTests"
+    ]
+}'</span></code></pre>
           <i class="fa fa-copy"></i>
         </span>
         <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
@@ -1237,7 +2634,12 @@ v1.activityStream(<span class="hljs-string">'Story:1234'</span>).then(<span clas
   -H <span class="hljs-string">"Content-Type: application/json"</span>
   -H <span class="hljs-string">"Accept: application/json"</span>
   --request POST
-  --data <span class="hljs-string">'{"removeFrom": ["RegressionTestDetails", "RegressionTests"]}'</span></code></pre>
+  --data <span class="hljs-string">'{
+    "removeFrom": [
+      "RegressionTestDetails",
+      "RegressionTests"
+    ]
+}'</span></code></pre>
           <i class="fa fa-copy"></i>
         </span>
         <span class="code-wrapper csharp "><pre class="highlight csharp "><code></code></pre>
@@ -1323,6 +2725,19 @@ v1.activityStream(<span class="hljs-string">'Story:1234'</span>).then(<span clas
           <a href="#" data-language-name="javascript">javascript</a>
         </div>
       </div>
+    </div>
+    <div class="scrim"></div>
+    <div class="my-info-modal">
+      <label>
+        <span>Host</span>
+        <input id="host" /> </label>
+      <label>
+        <span>Instance</span>
+        <input id="instance" /> </label>
+      <label>
+        <span>Access Token</span>
+        <input id="token" /> </label>
+      <button class="save-settings">Save</button>
     </div>
   </body>
 </html>
