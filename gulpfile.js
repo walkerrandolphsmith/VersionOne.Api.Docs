@@ -116,7 +116,7 @@ gulp.task('js', function() {
 
   return gulp.src(libs.concat(scripts))
     .pipe(concat('all.js'))
-    .pipe(gulpif(COMPRESS, uglify()))
+    .pipe(gulpif(COMPRESS, uglify().on('error', console.log)))
     .pipe(gulp.dest('./build/javascripts'));
 });
 

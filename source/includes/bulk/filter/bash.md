@@ -4,5 +4,10 @@ curl "https://V1Host/V1Instance/api/asset"
   -H "Content-Type: application/json"
   -H "Accept: application/json"
   --request POST
-  --data '{"from":"Story", "filter": [Children[AssetState!="255"].@Count>"0"]}'
+  --data '{
+    "from":"Story",
+    "filter": [
+      Children[AssetState!="255"].@Count>"0"
+    ]
+}'
 ```

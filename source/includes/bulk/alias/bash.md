@@ -4,5 +4,16 @@ curl "https://V1Host/V1Instance/api/asset"
   -H "Content-Type: application/json"
   -H "Accept: application/json"
   --request POST
-  --data '[{"@newScope": {"AssetType":"Scope", "Name": "New Scope", "Super": "Scope:0"}}, {"@newStory":{{"AssetType":"Story", "Name": "New Story", "Scope": "@newScope"}}]'
+  --data '[ 
+   "@newScope":{  
+      "AssetType":"Scope",
+      "Name":"New Scope",
+      "Super": "Scope:0"
+   },
+   "@newStory":{  
+      "AssetType":"Story",
+      "Name":"New Story",
+      "Scope": "@newScope"
+   },
+]'
 ```

@@ -14,7 +14,7 @@ with V1Meta(
 ```
 
 ```bash
-curl "https://V1Host/V1Instnace/api_endpoint_here"
+curl "https://V1Host/V1Instance/api_endpoint_here"
   -H "Authorization: Bearer <access-token>"
 ```
 
@@ -32,8 +32,6 @@ curl "https://V1Host/V1Instnace/api_endpoint_here"
   .withAccessToken('<access-token>');
 ```
 
-> Make sure to replace `<access-token>` with your API token.
-
 VersionOne uses access tokens to grant access to the API. You can register a new access token by
 ...
 
@@ -42,5 +40,5 @@ VersionOne expects for the access token to be included in all API requests to th
 `Authorization: Bearer <access-token>`
 
 <aside class="notice">
-You must replace <code><access-token></code> with your personal access token.
+You can udpate these docs with your <code>access token</code> with the Edit button above or click <span class="here">here</span>
 </aside>

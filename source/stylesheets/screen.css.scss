@@ -84,10 +84,10 @@ html, body {
     display: block;
     width: 100%;
     height: 100px;
-    margin-top: $logo-margin;
     padding-left: 20px;
     padding-right: 20px;
-    width: calc(100% - 40px);
+    width: 120px;
+    margin: auto;
   }
 
   &>.search {
@@ -251,7 +251,89 @@ html, body {
   &.open {left: $nav-width}
 }
 
+.badge {
+  display: inline-block;
+  border-radius: 2px;
+  padding: 4px;
+  background-color: #2467af;
+  color: white;
+  margin-left: 28px;
+  margin-bottom: 10px;
+}
 
+.dark-box {
+  border-left: 1px solid #efefef;
+}
+h1 {
+  border-right: 1px solid #efefef;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// INSTANCE BAR
+////////////////////////////////////////////////////////////////////////////////
+.instance-bar {
+  position: fixed;
+  z-index: 50;
+  height: 34px;
+  width: calc(50% - 155px);
+  background: #fff;
+  border-bottom: 1px solid #efefef;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.here {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.scrim {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.my-info-modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 250px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 500px 500px rgba(0, 0, 0, 0.2);
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  label {
+    padding: 10px 0;
+  }
+
+  label input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  button {
+    padding: 10px 2px;
+    width: 100%;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+}
 ////////////////////////////////////////////////////////////////////////////////
 // PAGE LAYOUT AND CODE SAMPLE BACKGROUND
 ////////////////////////////////////////////////////////////////////////////////
@@ -325,9 +407,9 @@ html, body {
 // This is all the stuff with the light background in the left half of the page
 
 .content {
-  // to place content above the dark box
   position: relative;
   z-index: 30;
+  top: 35px;
 
   &:after {
     content: '';
@@ -585,6 +667,9 @@ html, body {
 // There are also a couple styles disperesed
 
 @media (max-width: $tablet-width) {
+  .instance-bar {
+    width: 100%;  
+  }
   .tocify-wrapper {
     left: -$nav-width;
 

@@ -4,5 +4,10 @@ curl "https://V1Host/V1Instance/api/tags/command/remove"
   -H "Content-Type: application/json"
   -H "Accept: application/json"
   --request POST
-  --data '{"removeFrom": ["RegressionTestDetails", "RegressionTests"]}'
+  --data '{
+    "removeFrom": [
+      "RegressionTestDetails",
+      "RegressionTests"
+    ]
+}'
 ```

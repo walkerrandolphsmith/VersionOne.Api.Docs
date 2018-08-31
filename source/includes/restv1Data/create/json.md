@@ -1,0 +1,20 @@
+```json
+{  
+   "Attributes":{  
+      "Name":{  
+         "value":"New Name",
+         "act":"set"
+      },
+      "Scope":{  
+         "value":"Scope:123",
+         "act":"set"
+      },
+      "ChangeSets":[  
+         {  
+            "idref":"ChangeSet:123",
+            "act":"add"
+         }
+      ]
+   }
+}
+```

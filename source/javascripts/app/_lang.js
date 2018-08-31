@@ -1,35 +1,31 @@
-//= require ../lib/_jquery
-
-/*
-Copyright 2008-2013 Concur Technologies, Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License"); you may
-not use this file except in compliance with the License. You may obtain
-a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-License for the specific language governing permissions and limitations
-under the License.
-*/
 (function (global) {
   'use strict';
 
+  var LANG = 'lang';
+  var HOST = 'host';
+  var INSTANCE = 'instance';
+  var TOKEN = 'token';
+
+  var DEFAULT_HOST = 'V1Host';
+  var DEFAULT_INSTNACE = 'V1Instance';
+  var DEFAULT_TOKEN = '<access-token>';
+
   var languages = [];
+  var host = DEFAULT_HOST;
+  var instance = DEFAULT_INSTNACE;
+  var token = DEFAULT_TOKEN;
 
   global.setupLanguages = setupLanguages;
   global.activateLanguage = activateLanguage;
+  global.setupSettings = setupSettings;
+  global.updateSettings = updateSettings;
 
   function activateLanguage(language) {
-    if (!language) return;
-    if (language === "") return;
+    if (!language || language === "") return;
 
     $(".lang-selector a").removeClass('active');
     $(".lang-selector a[data-language-name='" + language + "']").addClass('active');
-    for (var i=0; i < languages.length; i++) {
+    for (var i = 0; i < languages.length; i++) {
       $(".code-wrapper." + languages[i]).hide();
       $(".lang-specific." + languages[i]).hide();
     }
@@ -40,15 +36,11 @@ under the License.
 
     global.toc.calculateHeights();
 
-    // scroll to the new location of the position
     if ($(window.location.hash).get(0)) {
       $(window.location.hash).get(0).scrollIntoView(true);
     }
   }
 
-  // parseURL and stringifyURL are from https://github.com/sindresorhus/query-string
-  // MIT licensed
-  // https://github.com/sindresorhus/query-string/blob/7bee64c16f2da1a326579e96977b9227bf6da9e6/license
   function parseURL(str) {
     if (typeof str !== 'string') {
       return {};
@@ -66,8 +58,6 @@ under the License.
       var val = parts[1];
 
       key = decodeURIComponent(key);
-      // missing `=` should be `null`:
-      // http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
       val = val === undefined ? null : decodeURIComponent(val);
 
       if (!ret.hasOwnProperty(key)) {
@@ -96,54 +86,73 @@ under the License.
     }).join('&') : '';
   };
 
-  // gets the language set in the query string
-  function getLanguageFromQueryString() {
+  function isLangKnow(lang) {
+    return Boolean(languages.find(function (language) { return language === lang }))
+  }
+
+  function getQueryParam(param) {
     if (location.search.length >= 1) {
-      var language = parseURL(location.search).language
-      if (language) {
-        return language;
-      } else if (jQuery.inArray(location.search.substr(1), languages) != -1) {
-        return location.search.substr(1);
+      var value = parseURL(location.search)[param]
+      if (value) {
+        return value;
+      }
+      var firstTerm = location.search.substr(1);
+      var isLangParam = param === LANG;
+
+      if (isLangParam && isLangKnow(firstTerm)) {
+        return firstTerm
       }
     }
-
     return false;
   }
 
-  // returns a new query string with the new language in it
-  function generateNewQueryString(language) {
+  function generateNewQueryString(param, value) {
     var url = parseURL(location.search);
-    if (url.language) {
-      url.language = language;
+
+    var params = Object.keys(url);
+    var hasOneParam = params.length === 1;
+    var hasShorthandLang = hasOneParam && isLangKnow(params[0]);
+
+    if (param === LANG && hasShorthandLang) return value;
+
+    if (hasShorthandLang) {
+      url = {};
+      url[LANG] = params[0];
+      url[param] = value;
       return stringifyURL(url);
     }
-    return language;
+
+    url[param] = value;
+
+    return stringifyURL(url);
   }
 
-  // if a button is clicked, add the state to the history
-  function pushURL(language) {
+  function pushURL(param, value) {
     if (!history) { return; }
     var hash = window.location.hash;
     if (hash) {
       hash = hash.replace(/^#+/, '');
     }
-    history.pushState({}, '', '?' + generateNewQueryString(language) + '#' + hash);
 
-    // save language as next default
-    localStorage.setItem("language", language);
+    var params = generateNewQueryString(param, value);
+
+    var url = "?" + params + "#" + hash;
+
+    history.pushState({}, '', url);
+
+    localStorage.setItem(param, value);
   }
 
   function setupLanguages(l) {
-    var defaultLanguage = localStorage.getItem("language");
+    var defaultLanguage = localStorage.getItem(LANG);
 
     languages = l;
 
-    var presetLanguage = getLanguageFromQueryString();
+    var presetLanguage = getQueryParam(LANG);
     if (presetLanguage) {
-      // the language is in the URL, so use that language!
       activateLanguage(presetLanguage);
 
-      localStorage.setItem("language", presetLanguage);
+      localStorage.setItem(LANG, presetLanguage);
     } else if ((defaultLanguage !== null) && (jQuery.inArray(defaultLanguage, languages) != -1)) {
       // the language was the last selected one saved in localstorage, so use that language!
       activateLanguage(defaultLanguage);
@@ -153,48 +162,142 @@ under the License.
     }
   }
 
-  function copy (event) {
-    var $copier = $(event.target);
-    var $pre = $copier.parent().find('pre');
-    selectText($pre[0]);
-    try {
+  function getDefaultSetting(setting, defaultValue) {
+    var fromStorage = localStorage.getItem(setting);
+    var fromQueryParam = getQueryParam(setting);
+
+    return fromQueryParam || fromStorage || defaultValue;
+  }
+
+  function setupSettings() {
+    var newHost = getDefaultSetting(HOST, DEFAULT_HOST);
+    var newInstance = getDefaultSetting(INSTANCE, DEFAULT_INSTNACE);
+    var newToken = getDefaultSetting(TOKEN, DEFAULT_TOKEN);
+
+    updateSettings($('.content')[0], newHost, newInstance, newToken);
+  }
+
+  function replaceTextNodes(node, transform) {
+    node.childNodes.forEach(function (el) {
+      var isTextNode = el.nodeType === 3;
+      if (!isTextNode) return replaceTextNodes(el, transform);
+      el.nodeValue = transform(el.nodeValue)
+    });
+  }
+
+  function updateSettings(rootElm, newHost, newInstance, newToken) {
+    pushURL(HOST, newHost);
+    pushURL(INSTANCE, newInstance);
+    localStorage.setItem(TOKEN, newToken);
+
+    function transform(string) {
+      return string.replace(host, newHost)
+        .replace(instance, newInstance)
+        .replace(token, newToken);
+    }
+
+    replaceTextNodes(rootElm, transform);
+
+    $('#host').val(newHost)
+    $('#instance').val(newInstance)
+    $('#token').val(newToken)
+
+    $('.host').html(newHost)
+    $('.instance').html(newInstance)
+    $('.token').html(newToken)
+
+    host = newHost;
+    instance = newInstance;
+    token = newToken;
+  }
+
+  $(function () {
+    var $button = $('.edit-instance, .here');
+    var $modal = $('.my-info-modal');
+    var $scrim = $('.scrim');
+    var $host = $('#host');
+
+    function showModal() {
+      $modal.show();
+      $scrim.show();
+      $host.focus();
+    }
+
+    function hideModal() {
+      $modal.hide();
+      $scrim.hide();
+    }
+
+    hideModal();
+
+    $button.on('click', showModal);
+    $scrim.on('click', hideModal);
+
+    function copy(event) {
+      var $copier = $(event.target);
+      var $pre = $copier.parent().find('pre');
+      selectText($pre[0]);
+      try {
         document.execCommand('copy');
+      }
+      catch (err) {
+        console.log('err', err);
+      }
     }
-    catch (err) {
-      console.log('err', err);
-    }
-}
 
-function selectText(element) {
-    var doc = document;
-    var text = element;
-    var range;
-    var selection;
+    function selectText(element) {
+      var doc = document;
+      var text = element;
+      var range;
+      var selection;
 
-    if (doc.body.createTextRange) {
+      if (doc.body.createTextRange) {
         range = document.body.createTextRange();
         range.moveToElementText(text);
         range.select();
-    } else if (window.getSelection) {
+      } else if (window.getSelection) {
         selection = window.getSelection();
         range = document.createRange();
         range.selectNodeContents(text);
         selection.removeAllRanges();
         selection.addRange(range);
+      }
     }
-}
 
-  // if we click on a language tab, activate that language
-  $(function() {
-    $(".lang-selector a").on("click", function() {
+    $(".fa-copy").click(copy);
+
+    $(".lang-selector a").on("click", function () {
       var language = $(this).data("language-name");
-      pushURL(language);
+      pushURL(LANG, language);
       activateLanguage(language);
       return false;
     });
-    window.onpopstate = function() {
-      activateLanguage(getLanguageFromQueryString());
+    var rootElm = $('.content')[0];
+
+    window.onpopstate = function () {
+      activateLanguage(getQueryParam(LANG));
+
+      var newHost = getQueryParam(HOST) || DEFAULT_HOST;
+      var newInstance = getQueryParam(INSTANCE) || DEFAULT_INSTNACE;
+      var newToken = localStorage.getItem(TOKEN) || DEFAULT_TOKEN;
+
+      updateSettings(rootElm, newHost, newInstance, newToken);
     };
-    $(".fa-copy").click(copy);
+
+    function saveSettings() {
+      var newHost = $host.val() || DEFAULT_HOST;
+      var newInstance = $('#instance').val() || DEFAULT_INSTNACE;
+      var newToken = $('#token').val() || DEFAULT_TOKEN;
+
+      updateSettings(rootElm, newHost, newInstance, newToken);
+      hideModal();
+    }
+
+    $('.save-settings').on('click', saveSettings);
+
+    $(window).on('keypress', function (event) {
+      if (event.which === 13) saveSettings();
+    });
   });
+
 })(window);

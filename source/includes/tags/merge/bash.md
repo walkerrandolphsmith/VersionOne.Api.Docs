@@ -4,5 +4,11 @@ curl "https://V1Host/V1Instance/api/tags/command/merge"
   -H "Content-Type: application/json"
   -H "Accept: application/json"
   --request POST
-  --data '{"MergeTo": "Regression Tests", "MergeFrom": ["RegressionTests", "RegTests"]}'
+  --data '{
+    "MergeTo": "Regression Tests",
+    "MergeFrom": [
+      "RegressionTests",
+      "RegTests"
+    ]
+}'
 ```

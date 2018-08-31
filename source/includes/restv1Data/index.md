@@ -1,9 +1,10 @@
 # ~/rest-1.v1/Data
 
+<div class="badge">USE: ~/api/asset</div>
+
 This endpoint provides read, write, and update access to assets. This endpoint queries for simple or complex sets of information, updates information, and executes system-defined operations.
 
-## Query Params
-param | Meaning
+Query Params | Meaning
 ----- | -------
 asOf | Use the asof query parameter to retrieve data as it existed at some point in time.
 filter | The filter parameter filters results to a subset that meet specific criteria. Whenever possible, use where or filter to explicitly choose specific assets, thereby reducing the load put on the application
@@ -17,16 +18,30 @@ sort | Any attribute definition can be used to sort the results of a query. Toke
 where | Without the where parameter, queries return the entire set of from assets. The where parameter filters the results to a subset that meet specific criteria. Whenever possible, use where or filter to explicitly choose specific assets, thereby reducing the load put on the application.
 with | Without the where parameter, queries return the entire set of from assets. The where parameter filters the results to a subset that meet specific criteria. Whenever possible, use where or filter to explicitly choose specific assets, thereby reducing the load put on the application.
 
-## Dichotomy of the Reponse
+### Dichotomy of the Reponse
 
-### Assets
+#### Assets
 When requesting more than a single asset, the assets node helps navigate over the set of assets. The attributes `total`, `pageSize`, and `pageStart` can be used to navigate through a large set.
 
-### Asset
+#### Asset
 The Asset node has an `href` attribute containing the URL path used to retrieve this asset. The asset node has an `id` attribute with the [OID Token](https://community.versionone.com/VersionOne_Connect/Developer_Library/Getting_Started/Platform_Concepts/OID_Token) for this asset.
 
-### Attribute
+#### Attribute
 `Name` refers to an [Attribute Definition](https://community.versionone.com/VersionOne_Connect/Developer_Library/Getting_Started/Platform_Concepts/Attribute_Definition).
 
-### Relation
+#### Relation
 `Name` refers to an [Attribute Definition](https://community.versionone.com/VersionOne_Connect/Developer_Library/Getting_Started/Platform_Concepts/Attribute_Definition). Contains another asset node with an `idref` to the [OID Token](https://community.versionone.com/VersionOne_Connect/Developer_Library/Getting_Started/Platform_Concepts/OID_Token) of the referenced asset.
+
+### Request Body
+Both creating and updating assets via rest-1.v1 has a POST body structured with a collection of attributes. When creating, it can contain Attributes that will exist on the new asset, and when updating it can contain Attributes that will modify an existing Asset.
+
+The keys are valid Attribute names for a given Asset. The value of each key is valid based on the following:
+
+* *Scalars*: like `Name` take a string value.
+
+* *Single-value relation*: like `Scope` takes an OidToken.
+
+* *Multi-value relations*: like `ChangeSets` take an array. Each element of the array specifies an asset to add or remove from the relation and have the shape:  
+`{ "idref": "<OidToken>", "act": "add" }`  
+or  
+`{ "idref": "<OidToken>", "act": "remove" }`

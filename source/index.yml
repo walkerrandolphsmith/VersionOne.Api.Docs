@@ -27,6 +27,7 @@ includes:
   - overview/tags
   - overview/loc
 
+  - terminology/index
   - attributeDefinitionSyntax/index
 
   - metav1/index
@@ -37,6 +38,7 @@ includes:
   - metav1/all/js
   - metav1/all/python
   - metav1/all/response
+  - metav1/all/content
 
   - metav1/singleAsset/index
   - metav1/singleAsset/bash
@@ -44,6 +46,7 @@ includes:
   - metav1/singleAsset/js
   - metav1/singleAsset/python
   - metav1/singleAsset/response
+  - metav1/singleAsset/content
 
   - metav1/example/index
   - metav1/example/bash
@@ -51,6 +54,7 @@ includes:
   - metav1/example/js
   - metav1/example/python
   - metav1/example/response
+  - metav1/example/content
 
   - bulk/index
 
@@ -119,9 +123,114 @@ includes:
 
   - restv1Data/index
 
+  - restv1Data/query/index
+  - restv1Data/query/bash
+  - restv1Data/query/csharp
+  - restv1Data/query/js
+  - restv1Data/query/python
+  - restv1Data/query/response
+  - restv1Data/query/content
+
+  - restv1Data/create/index
+  - restv1Data/create/bash
+  - restv1Data/create/csharp
+  - restv1Data/create/js
+  - restv1Data/create/python
+  - restv1Data/create/response
+  - restv1Data/create/content
+
+  - restv1Data/update/index
+  - restv1Data/update/bash
+  - restv1Data/update/csharp
+  - restv1Data/update/js
+  - restv1Data/update/python
+  - restv1Data/update/response
+  - restv1Data/update/content
+
   - restv1Hist/index
 
   - queryv1/index
+
+  - queryv1/query/index
+  - queryv1/query/bash
+  - queryv1/query/csharp
+  - queryv1/query/js
+  - queryv1/query/json
+  - queryv1/query/python
+  - queryv1/query/response
+  - queryv1/query/content
+  - queryv1/subselect/index
+  - queryv1/subselect/bash
+  - queryv1/subselect/csharp
+  - queryv1/subselect/js
+  - queryv1/subselect/json
+  - queryv1/subselect/python
+  - queryv1/subselect/response
+  - queryv1/subselect/content
+  - queryv1/filter/index
+  - queryv1/filter/bash
+  - queryv1/filter/csharp
+  - queryv1/filter/js
+  - queryv1/filter/json
+  - queryv1/filter/python
+  - queryv1/filter/response
+  - queryv1/filter/content
+  - queryv1/where/index
+  - queryv1/where/bash
+  - queryv1/where/csharp
+  - queryv1/where/js
+  - queryv1/where/json
+  - queryv1/where/python
+  - queryv1/where/response
+  - queryv1/where/content
+  - queryv1/with/index
+  - queryv1/with/bash
+  - queryv1/with/csharp
+  - queryv1/with/js
+  - queryv1/with/json
+  - queryv1/with/python
+  - queryv1/with/response
+  - queryv1/with/content
+  - queryv1/sort/index
+  - queryv1/sort/bash
+  - queryv1/sort/csharp
+  - queryv1/sort/js
+  - queryv1/sort/json
+  - queryv1/sort/python
+  - queryv1/sort/response
+  - queryv1/sort/content
+  - queryv1/group/index
+  - queryv1/group/bash
+  - queryv1/group/csharp
+  - queryv1/group/js
+  - queryv1/group/json
+  - queryv1/group/python
+  - queryv1/group/response
+  - queryv1/group/content
+  - queryv1/page/index
+  - queryv1/page/bash
+  - queryv1/page/csharp
+  - queryv1/page/js
+  - queryv1/page/json
+  - queryv1/page/python
+  - queryv1/page/response
+  - queryv1/page/content
+  - queryv1/find/index
+  - queryv1/find/bash
+  - queryv1/find/csharp
+  - queryv1/find/js
+  - queryv1/find/json
+  - queryv1/find/python
+  - queryv1/find/response
+  - queryv1/find/content
+  - queryv1/asof/index
+  - queryv1/asof/bash
+  - queryv1/asof/csharp
+  - queryv1/asof/js
+  - queryv1/asof/json
+  - queryv1/asof/python
+  - queryv1/asof/response
+  - queryv1/asof/content
 
   - activityStream/index
 
