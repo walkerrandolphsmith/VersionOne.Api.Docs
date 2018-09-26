@@ -609,7 +609,6 @@ pre tt:after {
 
 .content {
   padding: 40px;
-  max-width: calc(100% - 64px);
 }
 
 .group {
@@ -643,18 +642,22 @@ pre tt:after {
     font-size: 100%;
   }
 
-  .content.open {
-    max-height: 100vh;
-    overflow: hidden;
-    color: transparent;
-    background: rgba(9, 30, 66, 0.54);
-    transition: opacity 220ms ease 0s;
+  .layout-container {
+    padding: 64px;
   }
-}
 
-@media only screen and (min-width: 480px) {
   .content {
-    width: calc(100% - 320px);
+    margin: 0;
+    padding: 0px;
+    max-width: 100%;
+  }
+
+  [role="group"] {
+    padding: 0;
+  }
+
+  .nav {
+    display: none;
   }
 }
 
@@ -820,3 +823,9 @@ pre tt:after {
     /* margin-left: 28px; */
     margin-bottom: 10px;
   }
+
+  .layout-container {
+    display: flex;
+    height: 100%;
+  }
+
