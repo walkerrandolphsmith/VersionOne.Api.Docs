@@ -10,8 +10,8 @@ export default class extends React.Component {
     super(props, context)
     this.state = {
       modals: [],
-      url: 'https://www7.v1host.com/V1Production',
-      token: '1.E3xealNBIcT4YV7qIIGIS+LPfJY=',
+      url: 'https://V1Host/V1Instance',
+      token: '1.11xea1111cT5555IIGIS+LPfJY=',
       avatarSrc: localStorage.getItem('avatarSrc') || '',
     }
   }
