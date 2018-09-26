@@ -1,8 +1,4 @@
----
-title: ~/meta.v1/:assetType
----
-
-## ~/meta.v1/:assetType
+## Query
 
 This endpoint retrieves a description of an AssetType like `Story`, `Defect`, `Member` or any Asset in the system.
 
