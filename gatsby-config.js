@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: `/versionone-api-docs`,
   siteMetadata: {
     title: 'Gatsby Default Starter',
   },
