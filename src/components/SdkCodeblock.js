@@ -7,7 +7,7 @@ const Content = props => {
     "Sorry we don't have an example yet! Fork our repo and help us document"
 
   return (
-    <div style={{ 'padding-top': '10px', width: '100%' }}>
+    <div className="sdk-block">
       <div dangerouslySetInnerHTML={{ __html: message }} />
     </div>
   )

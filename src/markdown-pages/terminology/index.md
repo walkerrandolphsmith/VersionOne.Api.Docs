@@ -7,12 +7,12 @@ A **System Asset** is a core business object in the VersionOne® Lifecycle model
 Asset types describe the "classes" of data available. Each asset type contains a collection of attribute definitions, a collection of operations, and a number of useful attribute definitions for things like sorting. Asset types form an inheritance hierarchy, such that each asset type inherits attribute definitions, operations, and rules from its parent asset type. Those asset types at the leaves of this hierarchy are concrete, whereas asset types with children asset types are abstract. Assets are all instances of concrete asset types. Asset types are identified by unique names.
 
 By way of example, Story and Defect are concrete asset types. On the other hand, Workitem is an abstract asset type, from which Story and Defect ultimately derive.
-
+    
 Most asset types have the same name as found in the application user interface. A Defect in the user interface is also a Defect as an asset type. However, many of the most common asset types have a different name. 
 
 <br />
 
-![Asset Diagram](asset-diagram.png)
+![Asset Diagram](./../../images/asset-diagram.png)
 
 
 ## Asset States

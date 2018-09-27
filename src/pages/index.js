@@ -20,16 +20,16 @@ class IndexPage extends React.Component {
 
   render() {
     const data = this.props.data
-    const conentClass = this.state.isOpen ? 'content open' : 'content'
+    const conentClass = this.state.isOpen ? 'main open' : 'main'
     return (
       <Layout>
         <div className="layout-container">
           <span className="nav">
             <Toc isOpen={this.state.isOpen} resize={this.resize} />
           </span>
-          <div className={conentClass}>
+          <main className={conentClass}>
             <Groups data={data} />
-          </div>
+          </main>
         </div>
       </Layout>
     )
