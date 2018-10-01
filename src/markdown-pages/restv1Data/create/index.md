@@ -17,12 +17,18 @@ Update attributes a specific asset
          "value":"Scope:123",
          "act":"set"
       },
-      "ChangeSets":[  
-         {  
-            "idref":"ChangeSet:123",
-            "act":"add"
-         }
-      ]
+      "ChangeSets": {
+		  "value": [  
+			{  
+				"idref":"ChangeSet:123",
+				"act":"add"
+			},
+			{  
+				"idref":"ChangeSet:789",
+				"act":"remove"
+			}
+     	 ]
+	  }
    }
 }
 ```
@@ -31,33 +37,35 @@ Update attributes a specific asset
 
 ```json
 {
-	"_type": "Assets",
-	"total": 13768,
-	"pageSize": 5,
-	"pageStart": 0,
-	"Assets": [
-		{
-			"_type": "Asset",
-			"href": "/V1Instance/rest-1.v1/Data/Story/1234",
-			"id": "Story:1432",
-			"Attributes": {
-				"Name": {
-					"_type": "Attribute",
-					"name": "Name",
-					"value": "Story Name"
-                },
-                "Number": {
-					"_type": "Attribute",
-					"name": "Number",
-					"value": "S-1001"
-				},
-                "Super": {
-					"_type": "Attribute",
-					"name": "Super",
-					"value": "Epic:1234"
-				}
+	"_type": "Asset",
+	"href": "/V1Instance/rest-1.v1/Data/Story/4462/4631",
+	"id": "Story:4462:4631",
+	"Attributes": {
+		"Name": {
+			"_type": "Attribute",
+			"name": "Name",
+			"value": "New Name"
+		},
+		"Scope": {
+			"_type": "Relation",
+			"name": "Scope",
+			"value": {
+				"_type": "Asset",
+				"href": "/V1Instance/rest-1.v1/Data/Scope/0",
+				"idref": "Scope:0"
 			}
-        }
-    ]
+		},
+		"ChangeSets": {
+			"_type": "Relation",
+			"name": "ChangeSets",
+			"value": [
+				{
+					"_type": "Asset",
+					"href": "/V1Instance/rest-1.v1/Data/ChangeSet/123",
+					"idref": "ChangeSet:123"
+				}
+			]
+		}
+	}
 }
 ```
